@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>火力全开活动流程话术V1.0</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background-color: #f5f5f5;
+            background-image: linear-gradient(to bottom, #f9f7f0, #e8e6d9);
+            -webkit-tap-highlight-color: transparent; /* 移除iOS点击高亮 */
+        }
+        h1, h2 {
+            color: #e74c3c;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .time-schedule {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .activity {
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+        }
+        .team {
+            background-color: #eaf7fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .emoji {
+            font-size: 1.2em;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: flex-end;
+        }
+        .copy-btn, .share-btn {
+            background-color: #d4a373;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .share-btn {
+            background-color: #5a7ebc;
+        }
+        .copy-btn:hover {
+            background-color: #b68c5d;
+        }
+        .share-btn:hover {
+            background-color: #4a6da6;
+        }
+        .copy-btn:active, .share-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .copy-btn.success {
+            background-color: #4CAF50;
+        }
+        /* 加载状态 */
+        .copy-btn.loading, .share-btn.loading {
+            position: relative;
+            color: transparent;
+        }
+        .copy-btn.loading::after, .share-btn.loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-top: -8px;
+            margin-left: -8px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        /* 按钮波纹效果 */
+        .copy-btn::before, .share-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: all 0.6s ease;
+        }
+        .copy-btn:active::before, .share-btn:active::before {
+            width: 120%;
+            height: 120%;
+            opacity: 1;
+            transition: all 0s;
+        }
+        .copy-content {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-word;
+        }
+        .content-section {
+            margin: 15px 0;
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, rgba(0,0,0,0.03), rgba(0,0,0,0.15), rgba(0,0,0,0.03));
+            margin: 15px 0;
+            border: none;
+        }
+        
+        /* 提示弹窗样式 */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(51, 51, 51, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            z-index: 10000;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0;
+            transform: translate(-50%, 20px);
+        }
+        .toast-notification.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                font-size: 15px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            h2 {
+                font-size: 1.3em;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            .activity {
+                padding: 12px 10px;
+                margin-bottom: 20px;
+                border-left-width: 3px;
+            }
+            .copy-content {
+                padding: 12px 10px;
+            }
+            .btn-group {
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: space-between;
+            }
+            .copy-btn, .share-btn {
+                padding: 10px 12px;
+                font-size: 0.9em;
+                flex: 1;
+                min-height: 44px;
+                min-width: 80px;
+                max-width: 140px;
+                margin-bottom: 5px;
+            }
+            .content-section {
+                margin: 12px 0;
+            }
+            .section-divider {
+                margin: 12px 0;
+            }
+            .team {
+                padding: 8px;
+            }
+            .emoji {
+                font-size: 1.1em;
+            }
+            /* 移动端弹窗 */
+            .toast-notification {
+                padding: 8px 16px;
+                width: 80%;
+                text-align: center;
+            }
+        }
+        
+        /* 针对iPhone SE等小屏手机 */
+        @media (max-width: 375px) {
+            body {
+                padding: 8px;
+                font-size: 14px;
+            }
+            .activity {
+                padding: 10px 8px;
+            }
+            .copy-content {
+                padding: 10px 8px;
+            }
+            .btn-group {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .copy-btn, .share-btn {
+                padding: 10px;
+                font-size: 0.85em;
+                min-width: 80px;
+                max-width: none;
+                flex-basis: calc(50% - 4px);
+                margin: 0;
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>火力全开活动流程话术V1.0（豹子专属版）</h1>
+
+    <div class="activity">
+        <h2>1. 身份证展示</h2>
+        <div class="copy-content">
+            <p>部分宝贝已经集合完毕<span class="emoji">✌🏻</span></p>
+            <p>我们的教官——猎豹向大家进行活动的介绍和身份证展示<span class="emoji">🪪</span>为宝贝们的安全负责</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>2. 交通广播</h2>
+        <div class="copy-content">
+            <p>交通广播！！交通广播！！</p>
+            <p><span class="emoji">📢</span>10位宝贝已全部上车</p>
+            <p>2️⃣所有小朋友安全带已全部系好，侧面扶手调节到位，领队们已一一检查过</p>
+            <p>3️⃣晕车的宝贝安排在靠前落座，已贴好晕车贴<span class="emoji">👶</span></p>
+            <p>4️⃣本次车程预计60分钟左右<span class="emoji">⏱</span></p>
+            <p>5️⃣领队们已分别落座在大巴车<span class="emoji">🚌</span>前中后，时刻关注宝贝们的状态</p>
+            <p><span class="emoji">♥️</span>猎豹已坐落在大巴车司机边上，时刻关注大巴车司机行驶动态，确保行程安全<span class="emoji">👌</span></p>
+            <p>有问题可以随时联系猎豹</p>
+            <p>18622389529</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>3. 位置信息</h2>
+        <div class="copy-content">
+            <p>家长朋友可以通过<span class="emoji">✅</span>实时定位来查询我们的位置哦</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>4. 下车准备</h2>
+        <div class="copy-content">
+            <p>①大巴车已经抵达营地，</p>
+            <p>我们依次下车<span class="emoji">🚌</span></p>
+            <p>②我们已经到达营地啦</p>
+            <p>在活动开始之前，让我们先带宝贝们，上个卫生间<span class="emoji">🚻</span></p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>5. 着装要求</h2>
+        <div class="copy-content">
+            <p>如何正确穿戴军装呢？</p>
+            <p>听我们的教官来讲解一下吧</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>猎豹教官正在给宝贝们讲解我们的穿着要求</p>
+                <p>帽子调到合适位置、上衣塞到裤子里</p>
+                <p>做一个板正、利索的小战士</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>6. 温开水</h2>
+        <div class="copy-content">
+            <p>在营地我们都会有温开水供应，</p>
+            <p>为小战士们补积水分<span class="emoji">💦</span></p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>7. 两条规则</h2>
+        <div class="copy-content">
+            </p>大开场开始了</p>
+            <p>在今天的活动中每位小战士都要做到事事有回应、一令一动听指挥，两个要求</p>
+            <p>今天小战士们要听指挥才能当兵王</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>8. 分队表</h2>
+        
+        <div class="team">
+            <div class="copy-content">
+                <p><span class="emoji">【🔥火力全开】</span></p>
+                <p><span class="emoji">💥</span>队名:芭比队</p>
+                <p><span class="emoji">🪖</span>领队:芭比</p>
+                <p><span class="emoji">🫡</span>队长: 马沐辰</p>
+                <p><span class="emoji">🫡</span>副队长：田楚翔</p>
+                <p>小队成员：</p>
+                <p><span class="emoji">👦🏼</span>杨昌玥</p>
+                <p><span class="emoji">👦🏼</span>肖润泰</p>
+                <p><span class="emoji">👦🏼</span>王祎</p>
+                <p><span class="emoji">☎️</span>电话：18939212508</p>
+                <p>为方便活动中群内沟通，请各位家长朋友修改群备注，可以拉亲朋好友来围观哦～</p>
+                <p>例如：彭于晏妈妈@芭比队</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制芭比队信息</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+
+        <div class="team">
+            <div class="copy-content">
+                <p><span class="emoji">【🔥火力全开】</span></p>
+                <p><span class="emoji">💥</span>队名:火箭队</p>
+                <p><span class="emoji">🪖</span>领队:大圣</p>
+                <p><span class="emoji">🫡</span>队长: 叶振宽</p>
+                <p><span class="emoji">🫡</span>副队长：杨雨蒴</p>
+                <p><span class="emoji">🫡</span>生活部长： 郭子傲</p>
+                <p>小队成员：</p>
+                <p><span class="emoji">👦🏼</span> 祝世赫 <span class="emoji">👦🏼</span> 杨雨蒴</p>
+                <p><span class="emoji">☎️</span>电话：15508685896</p>
+                <p>为方便活动中群内沟通，请各位家长朋友修改群备注，可以拉亲朋好友来围观哦～ 也可以点击头像添加我的微信哦！</p>
+                <p>例如：彭于晏妈妈@</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制火箭队信息</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyFullSection(this, '8. 分队表')">复制全部分队信息</button>
+            <button class="share-btn" onclick="shareFullSection(this, '8. 分队表')">分享全部</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>9. 哨声指令</h2>
+        <div class="copy-content">
+            <p>哨声响起我们的小战士要干些什么呢</p>
+            <p><span class="emoji">🤗</span> -  解散 -  集合</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>10. 军火币奖励</h2>
+        <div class="copy-content">
+            <p>由于我们小战士们刚刚的表现良好，激情满满<span class="emoji">❤️‍🔥</span></p>
+            <p>现在每人发放一颗军火币，离我们的优良装备又近了一步</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>11. 支援前线游戏</h2>
+        <div class="copy-content">
+            <p>现在让我们教官来讲解一下</p>
+            <p>支援前线这个小游戏的游戏规则吧！</p>
+            <p>现在带宝贝们做个破冰小游戏——支援前线</p>
+            <p>支援一个什么呢？水壶！！！</p>
+            <p>又轮支援前线的破冰小游戏开始了</p>
+            <p>让我们看看<span class="emoji">👀</span>这次支援的是什么呢</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>12. 军姿训练</h2>
+        <div class="copy-content">
+            <p>现在就要开始我们正式的军事基础训练啦</p>
+            <p>为什么要站军姿呢？</p>
+            <p>军姿可以锤炼我们的精神，可以锻炼我们的意志力，展现我们良好的精神面貌</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>站军姿需要两脚分开六十度，两腿挺直，大拇指贴于食指第二关节，两手自然下垂贴紧，收腹、挺胸、抬头、目视前方 ，两肩向后张</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>站好军姿获得我们的军火币哦，</p>
+                <p>同时，我们的教官也在队伍中不停地为我们调整姿势，达到标准的状态</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>军事训练第一项【军姿】</p>
+                <p>双脚脚跟并拢，脚尖分开约60度，双腿挺直夹紧，膝盖后压。小腹微收，自然挺胸，上体正直。两肩稍向后张，双臂自然下垂，手指并拢贴于裤缝。下颌微收，双眼平视前方，保持头部端正，精神饱满，全身协调用力，展现威武挺拔姿态。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>军姿是军人的基础形象，它磨炼意志、培养纪律性，塑造坚韧品格，展现威武气质，更彰显着服从命令、令行禁止的精神风貌。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>13. 敬礼训练</h2>
+        <div class="copy-content">
+            <p>【敬礼礼毕】</p>
+            <p>动作要求：手心向下，手腕不得弯曲，右大臂略平，与两肩略成一线，同时注视受礼者。</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>现在教官正在为小朋友们讲解什么是敬礼<span class="emoji">🫡</span></p>
+                <p>敬礼分为三种，分别为：</p>
+                <p>举枪礼<span class="emoji">🔫</span></p>
+                <p>注目礼<span class="emoji">👀</span></p>
+                <p>举手礼<span class="emoji">🙋</span></p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>现在让我们看看小战士们站的如何呢？</p>
+                <p>/哇塞，我们小战士英姿挺拔简直帅气极了</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>军事训练第二项【敬礼】</p>
+                <p>敬礼通常分为举手礼、注目礼和举枪礼</p>
+                <p>今天我们学习举手礼</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>敬礼的动作要领</p>
+                <p>听到口令后，上体正直，右手取捷径迅速抬起，五指并拢自然伸直，中指微接帽檐右角前约2厘米处；小臂略平，与大臂约成90度；手心向下，微向外张约20度</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>14. 跨立训练</h2>
+        <div class="copy-content">
+            <p>跨立与立正时，出收脚要迅速，方向要正，距离准确，保持上体姿态不变。跨立时，要军姿端正，精神振作，左脚跨出与两手后背协调一致，定位准确。</p>
+            <p>垮立在军姿的基础上进行。</p>
+            <p>动作过程：左脚向左跨出约一脚之长，两腿挺直，上体保持立正姿势，身体重心落于两脚之间。两手后背，左手握右手腕，拇指根部与外腰带下沿（内腰带上沿）同高；右手手指并拢自然弯曲，手心向后。</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>15. 休息与补水</h2>
+        <div class="copy-content">
+            <p>两项训练已经结束，我们调整休息一下活动活动，手腕脚踝</p>
+            <p>补水时间到啦！<span class="emoji">💧</span></p>
+            <p>补充好水分才能更好的继续进行下一个项目</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>16. 枪械训练</h2>
+        <div class="copy-content">
+            <p>现在就发来给我们讲解一下枪支的安全使用</p>
+            <p>注意<span class="emoji">‼️</span>枪在今天的训练中不可以指向队友，枪是对准敌人的</p>
+            <p>QBZ—95性能特点：使用DBP87式5.8毫米步枪弹，弹头长径比大、穿透力强。全枪大量采用工程塑料与铝合金材质，耐腐蚀性突出，模块化设计便于维护。在高温、高湿及风沙环境中表现稳定。</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>第二个持枪姿势是——</p>
+                <p>站姿警戒持枪</p>
+                <p>什么是站姿警戒持枪呢</p>
+                <p>让我们听教官来讲解一下吧！</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>军事训练【站姿持枪】</p>
+                <p>立姿持枪时，双脚分开与肩同宽，身体重心均匀分布，双膝微屈保持弹性。枪托稳固抵于肩窝，大臂自然下垂稍向外张，左手托握护木，右手握握把、食指置于扳机护圈外，目视前方，保持警觉与平衡</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>立姿狙枪时，双脚前后或左右分开站稳，间距略宽于肩，膝盖微屈降低重心。右手紧握枪托，贴腮瞄准，左手托住枪身前部稳定枪身，身体稍侧转，保持呼吸平稳，全身协调用力，以形成稳固支撑，确保精准瞄准。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>在固定靶射击中，听到第一次哨声后，迅速进入射击状态，调整呼吸，稳定持枪姿势。集中注意力，通过瞄准具锁定目标，平稳扣动扳机，完成一次射击。击发后，保持姿势不变，观察弹着点，等待后续指令，准备下一次射击。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>现在进行固定靶射击的是我们的火箭队</p>
+                <p>看看一令一动射击，战士们的命中率如何？</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>左脚在前，右脚在后 站姿射击</p>
+                <p>一令一动进行固定靶射击</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>接下来我们进行的是连续射击</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>连续射击的命中率已经比刚才一令一动固定摆射击命中率高很多了</p>
+                <p>连发的时候和一令一发完全不同诶</p>
+                <p>战士们的命中率很高</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>教官正在讲解快速移动射击的规则</p>
+                <p>每位宝贝分别进行，主要是记录宝贝的射击时间</p>
+                <p>需要注意的是在保证安全的同时进行</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>17. 手雷投掷训练</h2>
+        <div class="copy-content">
+            <p>投掷动作要领<span class="emoji">👇</span></p>
+            <p>双脚左右分开，与肩同宽或略宽，身体微微前倾，膝盖自然弯曲，重心置于两脚之间。</p>
+            <p>腿部蹬地发力，通过腰部的转动将力量传递到手臂。</p>
+            <p>右臂迅速向前挥摆，在手臂挥至身体前方约45°角时，手腕用力甩动，将手雷投出。</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>我们一队的小朋友，现在跟着猎豹教练开始了手榴弹投掷训练</p>
+                <p>我们小朋友都很棒扔得远远的</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>我们第二轮的手榴弹投掷训练</p>
+                <p>大家表现的也相当不错</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>让我们给他加油<span class="emoji">✊</span>加油<span class="emoji">✊</span>加油<span class="emoji">✊</span></p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>手雷按用途分为进攻型、防御型与特种手雷。进攻型靠冲击波杀伤，破片少；防御型靠大量高速破片制敌；特种手雷如闪光弹、烟雾弹、催泪弹，各有特殊作用。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>投掷方式主要有立姿、跪姿和卧姿。立姿便于发力，投掷距离远；跪姿稳定性佳，适合隐蔽时用；卧姿隐蔽性强，适合低姿态攻击近距离目标，使用时需依场景选择合适方式 。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>手雷的构造不同，同样这决定了手雷的用途也不同</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>那如何投掷手雷呢？</p>
+                <p>投掷手雷包含三个步骤：手榴弹预备、准备投弹、投！</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>18. 真人CS对战</h2>
+        <div class="copy-content">
+            <p>现在我们的教官正在讲解CS的枪支用法<span class="emoji">🔫🔫🔫</span></p>
+            <p>小战士们已经迫不及待准备开始了<span class="emoji">💃💃💃</span></p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>在作战中，我们可以用军火币继续向教官进行购买生命数量</p>
+                <p>一天中认真训练获得<span class="emoji">🉐</span>的军火币再次派上用场啦</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>现在战场烟雾缭绕</p>
+                <p>让我们看看小战士们都躲藏在哪里啦<span class="emoji">👀</span></p>
+                <p>蛇形丝滑走位</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p><span class="emoji">💥</span>走进战场，仿佛瞬间穿越到了紧张刺激的战斗世界。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>紧张的对决结束</p>
+                <p>小战士们仍旧是乐此不疲，讨论不绝，复盘中</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>此战二班倾向防守作战，一班火力压制作战</p>
+                <p>希望在下一轮的比拼中，小战士们都可以发挥自己的最大力量</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>一个好的团队有勇往前冲的前方</p>
+                <p>当然也要有最坚强的后盾<span class="emoji">🛡</span></p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>敌方虽然进攻非常猛烈</p>
+                <p>但我们小队也毫不逊色，小战士们火力非常迅猛</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>战士们手中的是我们进行CS的专用枪</p>
+                <p>经过一天活动赚取的军货币，用来帮助我们补充伤害，血量</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>紧张刺激的真人cs马上就要开始了！</p>
+                <p>开始之前由教官讲解规则</p>
+                <p>篮球场中线为界分红蓝两方</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>战士们在比赛过程中要注意安全哦</p>
+                <p>战况十分激烈</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>烟雾弹已经放出，战士们快速瞄准射击</p>
+                <p>红蓝双方交换场地，第二轮激战即将开始。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>战场上增加了烟雾弹，为我们做掩体</p>
+                <p>利用烟雾弹战士们快速出击吧</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>现场加入了烟雾弹，为复杂的地形增加了难度</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>第二轮比赛结束，红方获得胜利</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>第三轮即将开始，我们不限子弹，不限生命值，把伤害调到最高让我们期待一下比赛战况</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>19. 结营与勋章发放</h2>
+        <div class="copy-content">
+            <p>下面也来到了宝贝们最期待的护照勋章发放环节</p>
+            <p>第一次参加的宝贝会有护照<span class="emoji">🪄</span>，护照也像一个回忆录<span class="emoji">🎈</span>，当翻开宝贝走天下护照，去回忆每一个印章背后的故事，都是宝贝们宝贵的记忆</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>勋章<span class="emoji">🎖️🎖️🎖️</span></p>
+                <p>既是成长也是见证<span class="emoji">💦</span>每枚勋章都有其独特的意义<span class="emoji">🎖️</span>关于勇气、美好、回忆、汗水愿这些都能成为继续发光发热的燃料<span class="emoji">⛽️</span>不断前行</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>恭喜我们的田楚翔小战士获<span class="emoji">🉐</span>我们的2级勋章<span class="emoji">🎖️</span></p>
+                <p>@田楚翔妈妈 </p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>由教官亲自颁发在每位小战士手上！</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>每位宝贝领到啦军事礼物<span class="emoji">🎁</span>——战术手套</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>今天的愉快的活动就要结束了，接下来进行结营，总结一下今天学到了什么<span class="emoji">🤔</span></p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>上午小战士们学习了军姿、敬礼、垮立</p>
+                <p>下午小战士们练习了投掷手雷、移动射击、还有最受欢迎的真人cs</p>
+                <p>一天的时间很短，但是小战士们成长了很多</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>今天第一次参加的宝贝会领到一本新护照，后面每次活动都需要带上盖专属的印章，护照一定要保管好，丢失的话需要花费15元补办。</p>
+                <p><span class="emoji">⚠️</span>家长也借此提醒孩子保管好自己珍惜的物品，要不然就要从自己零花钱出啦～～</p>
+                <p>宝贝们回去以后要记得在第一页写上自己的名字</p>
+                <p>也可以在自己的印象旁边写上领队的名字，自己在活动中的感受喔</p>
+                <p>期待宝贝们将自己的美好回忆精彩装饰～</p>
+                <p>把护照变成手账本发挥自己的奇思妙想和创意把回忆点缀的也会更有意义</p>
+                <p>一起来看一下其他宝贝的护照吧～</p>
+                <p>这仅仅是一本护照吗？</p>
+                <p>不，这更像是一本记录孩子成长的手册<span class="emoji">🌱</span></p>
+                <p>宝贝们回去后也可以将护照用作记录本，记录<span class="emoji">📝</span>每一次的活动</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h2>20</h2>
+        <div class="copy-content">
+            <p>活动负责人猎豹正在向我们的家长朋友、小朋友们进行自我介绍，并出示他的身份证，为宝贝们今日活动的安全负责任，希望今日能带给宝贝们更多安全和温暖</p>
+        </div>
+        <div class="btn-group">
+            <button class="copy-btn" onclick="copyText(this)">复制</button>
+            <button class="share-btn" onclick="shareText(this)">分享</button>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>宝贝们已经顺利到达营地，现在我们去上个洗手间<span class="emoji">🚻</span>换上我们的军装。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>期待宝贝们变装吧！期间我们暂停直播哦！</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>猎豹教官正在给宝贝们讲解我们的穿着要求</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>帽子调到合适位置、上衣塞到裤子里</p>
+                <p>做一个板正、利索的小战士</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>大开场开始了</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>在今天的活动中每位小战士都要做到事事有回应、一令一动听指挥，两个要求</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>今天小战士们要听指挥才能当兵王</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+        
+        <hr class="section-divider">
+        <div class="content-section">
+            <div class="copy-content">
+                <p>在进行移动射击之前，先跟着教官熟悉一下地形，以便做出更好的成绩</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化操作，添加触摸反馈效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加触摸反馈
+            const buttons = document.querySelectorAll('.copy-btn, .share-btn');
+            buttons.forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.8';
+                }, { passive: true });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                    setTimeout(() => {
+                        this.style.opacity = '1';
+                    }, 200);
+                }, { passive: true });
+            });
+        });
+
+        function copyText(button) {
+            // 显示加载状态
+            button.classList.add('loading');
+            
+            // 获取最近的父级按钮组
+            const btnGroup = button.closest('.btn-group');
+            // 从按钮组找到最近的复制内容区域
+            let copyContent;
+            
+            // 首先尝试获取同级的copy-content
+            copyContent = btnGroup.previousElementSibling;
+            if (!copyContent || !copyContent.classList.contains('copy-content')) {
+                // 如果前一个元素不是copy-content，则查找父级活动区域内的第一个copy-content
+                const activityEl = btnGroup.closest('.activity, .team, .content-section');
+                copyContent = activityEl.querySelector('.copy-content');
+            }
+            
+            if (!copyContent) {
+                console.error('找不到要复制的内容');
+                button.classList.remove('loading');
+                return;
+            }
+            
+            const paragraphs = copyContent.querySelectorAll('p');
+            let formattedText = '';
+            
+            paragraphs.forEach((p, index) => {
+                formattedText += p.textContent.trim();
+                // 只有在非最后一段且下一段内容不为空时添加换行符
+                if (index < paragraphs.length - 1 && paragraphs[index + 1].textContent.trim()) {
+                    formattedText += '\n';
+                }
+            });
+            
+            try {
+                if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                    // iOS设备尝试使用clipboard API，不成功则使用分享功能
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(formattedText)
+                            .then(() => {
+                                showSuccess(button);
+                            })
+                            .catch(() => {
+                                // 如果clipboard API失败，则使用Web Share API
+                                if (navigator.share) {
+                                    shareTextContent(formattedText, button);
+                                } else {
+                                    showShareFallback(formattedText);
+                                }
+                            });
+                    } else {
+                        // 尝试备用方法
+                        fallbackCopy(formattedText, button);
+                    }
+                } else {
+                    // 非iOS设备
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(formattedText)
+                            .then(() => {
+                                showSuccess(button);
+                            })
+                            .catch(() => {
+                                fallbackCopy(formattedText, button);
+                            });
+                    } else {
+                        fallbackCopy(formattedText, button);
+                    }
+                }
+            } catch (err) {
+                if (navigator.share) {
+                    shareTextContent(formattedText, button);
+                } else {
+                    showShareFallback(formattedText);
+                }
+            }
+            
+            // 移除加载状态
+            setTimeout(() => {
+                button.classList.remove('loading');
+            }, 300);
+        }
+        
+        function shareText(button) {
+            // 显示加载状态
+            button.classList.add('loading');
+            
+            // 获取最近的父级按钮组
+            const btnGroup = button.closest('.btn-group');
+            // 从按钮组找到最近的复制内容区域
+            let copyContent;
+            
+            // 首先尝试获取同级的copy-content
+            copyContent = btnGroup.previousElementSibling;
+            if (!copyContent || !copyContent.classList.contains('copy-content')) {
+                // 如果前一个元素不是copy-content，则查找父级活动区域内的第一个copy-content
+                const activityEl = btnGroup.closest('.activity, .team, .content-section');
+                copyContent = activityEl.querySelector('.copy-content');
+            }
+            
+            if (!copyContent) {
+                console.error('找不到要分享的内容');
+                button.classList.remove('loading');
+                return;
+            }
+            
+            const paragraphs = copyContent.querySelectorAll('p');
+            let formattedText = '';
+            
+            paragraphs.forEach((p, index) => {
+                formattedText += p.textContent.trim();
+                // 只有在非最后一段且下一段内容不为空时添加换行符
+                if (index < paragraphs.length - 1 && paragraphs[index + 1].textContent.trim()) {
+                    formattedText += '\n';
+                }
+            });
+            
+            shareTextContent(formattedText, button);
+            
+            // 移除加载状态
+            setTimeout(() => {
+                button.classList.remove('loading');
+            }, 300);
+        }
+        
+        // 共享功能 - 使用Web Share API (iOS Safari支持)
+        function shareTextContent(text, button) {
+            if (navigator.share) {
+                navigator.share({
+                    title: '火力全开活动',
+                    text: text
+                })
+                .then(() => {
+                    button.textContent = '已分享';
+                    setTimeout(() => {
+                        button.textContent = button.textContent.includes('全部') ? '分享全部' : '分享';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('分享失败:', err);
+                    showShareFallback(text);
+                });
+            } else {
+                showShareFallback(text);
+            }
+        }
+        
+        function showCopyNotice(message = '请使用"分享"按钮，更适合iOS设备') {
+            showToast(message);
+        }
+        
+        function showToast(message, duration = 3000) {
+            // 检查是否已有toast存在
+            let toast = document.querySelector('.toast-notification');
+            if (toast) {
+                // 如果已存在，先移除旧的
+                document.body.removeChild(toast);
+            }
+            
+            // 创建新的toast
+            toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // 触发重绘并添加显示类
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // 设置定时移除
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, duration);
+        }
+        
+        function showShareFallback(text) {
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            modal.style.display = 'flex';
+            modal.style.flexDirection = 'column';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.zIndex = '9999';
+            modal.style.color = 'white';
+            modal.style.padding = '20px';
+            modal.style.boxSizing = 'border-box';
+            
+            const content = document.createElement('div');
+            content.style.backgroundColor = 'white';
+            content.style.color = 'black';
+            content.style.padding = '15px';
+            content.style.borderRadius = '5px';
+            content.style.marginBottom = '15px';
+            content.style.width = '90%';
+            content.style.maxWidth = '500px';
+            content.style.wordBreak = 'break-all';
+            content.style.whiteSpace = 'pre-wrap';
+            content.textContent = text;
+            
+            const instruction = document.createElement('p');
+            instruction.textContent = '请长按上方文本进行选择，然后点击分享或复制';
+            instruction.style.textAlign = 'center';
+            instruction.style.margin = '10px 0';
+            
+            const closeButton = document.createElement('button');
+            closeButton.textContent = '关闭';
+            closeButton.style.backgroundColor = '#d4a373';
+            closeButton.style.color = 'white';
+            closeButton.style.border = 'none';
+            closeButton.style.padding = '10px 20px';
+            closeButton.style.borderRadius = '5px';
+            closeButton.style.marginTop = '15px';
+            closeButton.style.cursor = 'pointer';
+            
+            closeButton.addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            
+            modal.appendChild(content);
+            modal.appendChild(instruction);
+            modal.appendChild(closeButton);
+            document.body.appendChild(modal);
+        }
+        
+        function fallbackCopy(text, button) {
+            try {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                textarea.style.top = '0';
+                textarea.style.left = '0';
+                textarea.style.width = '1px';
+                textarea.style.height = '1px';
+                textarea.style.whiteSpace = 'pre-wrap';
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+                
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textarea);
+                
+                if (successful) {
+                    showSuccess(button);
+                } else {
+                    if (navigator.share) {
+                        shareTextContent(text, button);
+                    } else {
+                        showShareFallback(text);
+                    }
+                }
+            } catch (err) {
+                if (navigator.share) {
+                    shareTextContent(text, button);
+                } else {
+                    showShareFallback(text);
+                }
+            }
+        }
+        
+        function showSuccess(button) {
+            button.textContent = '已复制';
+            button.classList.add('success');
+            
+            // 添加轻微震动反馈（如果设备支持）
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            
+            // 显示简短的提示
+            showToast('已复制到剪贴板', 1500);
+            
+            setTimeout(() => {
+                button.textContent = button.textContent.includes('信息') ? 
+                    button.textContent.replace('已复制', '复制') : '复制';
+                button.classList.remove('success');
+            }, 2000);
+        }
+
+        // 复制整个分队表
+        function copyFullSection(button, sectionTitle) {
+            const activityEl = button.closest('.activity');
+            const allCopyContents = activityEl.querySelectorAll('.copy-content');
+            let formattedText = '';
+            
+            allCopyContents.forEach((content, index) => {
+                const paragraphs = content.querySelectorAll('p');
+                paragraphs.forEach((p, pIndex) => {
+                    formattedText += p.textContent.trim();
+                    // 只有在非最后一段且下一段内容不为空时添加换行符
+                    if (pIndex < paragraphs.length - 1 && paragraphs[pIndex + 1].textContent.trim()) {
+                        formattedText += '\n';
+                    }
+                });
+                if (index < allCopyContents.length - 1) {
+                    formattedText += '\n\n';
+                }
+            });
+            
+            try {
+                if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                    // iOS设备尝试使用clipboard API，不成功则使用分享功能
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(formattedText)
+                            .then(() => {
+                                showSuccess(button);
+                            })
+                            .catch(() => {
+                                if (navigator.share) {
+                                    shareTextContent(formattedText, button);
+                                } else {
+                                    showShareFallback(formattedText);
+                                }
+                            });
+                    } else {
+                        fallbackCopy(formattedText, button);
+                    }
+                } else {
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(formattedText)
+                            .then(() => {
+                                showSuccess(button);
+                            })
+                            .catch(() => {
+                                fallbackCopy(formattedText, button);
+                            });
+                    } else {
+                        fallbackCopy(formattedText, button);
+                    }
+                }
+            } catch (err) {
+                if (navigator.share) {
+                    shareTextContent(formattedText, button);
+                } else {
+                    showShareFallback(formattedText);
+                }
+            }
+        }
+
+        // 分享整个分队表
+        function shareFullSection(button, sectionTitle) {
+            const activityEl = button.closest('.activity');
+            const allCopyContents = activityEl.querySelectorAll('.copy-content');
+            let formattedText = '';
+            
+            allCopyContents.forEach((content, index) => {
+                const paragraphs = content.querySelectorAll('p');
+                paragraphs.forEach((p, pIndex) => {
+                    formattedText += p.textContent.trim();
+                    // 只有在非最后一段且下一段内容不为空时添加换行符
+                    if (pIndex < paragraphs.length - 1 && paragraphs[pIndex + 1].textContent.trim()) {
+                        formattedText += '\n';
+                    }
+                });
+                if (index < allCopyContents.length - 1) {
+                    formattedText += '\n\n';
+                }
+            });
+            
+            shareTextContent(formattedText, button);
+        }
+    </script>
+</body>
+</html>
