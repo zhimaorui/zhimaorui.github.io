@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>火力全开活动流程话术V1.0</title>
+    <title>火力全开活动流程话术V2.0</title>
     <style>
         body {
             font-family: 'Microsoft YaHei', sans-serif;
@@ -49,8 +49,8 @@
         }
         .btn-group {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 6px; /* 缩小按钮间距 */
+            margin-top: 8px;
             justify-content: flex-end;
         }
         .copy-btn, .share-btn {
@@ -58,17 +58,17 @@
             color: white;
             border: none;
             border-radius: 4px;
-            padding: 8px 15px;
-            font-size: 0.9em;
+            padding: 4px 8px;      /* 更小内边距 */
+            font-size: 0.8em;      /* 更小字体 */
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 80px;
+            min-width: 48px;        /* 更小最小宽度 */
+            min-height: 26px;       /* 更小最小高度 */
+            flex: 1;                /* 平分一行 */
+            margin: 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
+            max-width: 120px;
         }
         .share-btn {
             background-color: #5a7ebc;
@@ -167,6 +167,63 @@
             transform: translate(-50%, 0);
         }
         
+        /* 折叠面板样式 */
+        .activity {
+            margin-bottom: 15px;
+        }
+        
+        .activity-header {
+            background-color: #d4a373;
+            color: white;
+            padding: 12px 15px;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .activity-header:hover {
+            background-color: #c69c6d;
+        }
+        
+        .activity-header h2 {
+            margin: 0;
+            color: white;
+            font-size: 1.1em;
+        }
+        
+        .activity-header .toggle-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s;
+            text-align: center;
+            line-height: 24px;
+        }
+        
+        .activity-content {
+            display: none;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .activity.active .activity-header {
+            border-radius: 8px 8px 0 0;
+            background-color: #b68c5d;
+        }
+        
+        .activity.active .activity-content {
+            display: block;
+        }
+        
+        .activity.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
         @media (max-width: 480px) {
             body {
                 padding: 10px;
@@ -190,17 +247,15 @@
             }
             .btn-group {
                 flex-wrap: wrap;
-                gap: 8px;
+                gap: 4px;
                 justify-content: space-between;
             }
             .copy-btn, .share-btn {
-                padding: 10px 12px;
-                font-size: 0.9em;
-                flex: 1;
-                min-height: 44px;
-                min-width: 80px;
-                max-width: 140px;
-                margin-bottom: 5px;
+                padding: 6px 4px;
+                font-size: 0.8em;
+                min-width: 40px;
+                min-height: 22px;
+                max-width: 90px;
             }
             .content-section {
                 margin: 12px 0;
@@ -219,6 +274,16 @@
                 padding: 8px 16px;
                 width: 80%;
                 text-align: center;
+            }
+            .copy-btn, .share-btn {
+                padding: 8px 6px;
+                font-size: 0.85em;
+                min-width: 50px;
+                min-height: 28px;
+                max-width: 100px;
+            }
+            .btn-group {
+                gap: 6px;
             }
         }
         
@@ -239,968 +304,1280 @@
                 flex-wrap: wrap;
             }
             .copy-btn, .share-btn {
-                padding: 10px;
-                font-size: 0.85em;
-                min-width: 80px;
-                max-width: none;
-                flex-basis: calc(50% - 4px);
-                margin: 0;
-                margin-bottom: 8px;
+                padding: 4px 2px;
+                font-size: 0.75em;
+                min-width: 32px;
+                min-height: 18px;
+                max-width: 70px;
+            }
+            .btn-group {
+                gap: 2px;
             }
         }
     </style>
+    <style>
+    .activity-list {
+        column-count: 2;
+        column-gap: 28px;
+        padding: 10px 0 10px 0;
+    }
+    .activity {
+        display: block;
+        break-inside: avoid;
+        margin-bottom: 28px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        border-radius: 10px;
+        background: #fff;
+        padding: 0;
+        /* 去除多余外边距 */
+    }
+    @media (max-width: 900px) {
+        .activity-list {
+            column-count: 1;
+            column-gap: 0;
+            padding: 0;
+        }
+        .activity {
+            margin-bottom: 18px;
+        }
+    }
+    </style>
 </head>
 <body>
-    <h1>火力全开活动流程话术V1.0（豹子专属版）</h1>
+    <h1>火力全开活动流程话术V2.0</h1>
 
-    <div class="activity">
-        <h2>1. 身份证展示</h2>
-        <div class="copy-content">
-            <p>部分宝贝已经集合完毕<span class="emoji">✌🏻</span></p>
-            <p>我们的教官——猎豹向大家进行活动的介绍和身份证展示<span class="emoji">🪪</span>为宝贝们的安全负责</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
-
-    <div class="activity">
-        <h2>2. 交通广播</h2>
-        <div class="copy-content">
-            <p>交通广播！！交通广播！！</p>
-            <p><span class="emoji">📢</span>10位宝贝已全部上车</p>
-            <p>2️⃣所有小朋友安全带已全部系好，侧面扶手调节到位，领队们已一一检查过</p>
-            <p>3️⃣晕车的宝贝安排在靠前落座，已贴好晕车贴<span class="emoji">👶</span></p>
-            <p>4️⃣本次车程预计60分钟左右<span class="emoji">⏱</span></p>
-            <p>5️⃣领队们已分别落座在大巴车<span class="emoji">🚌</span>前中后，时刻关注宝贝们的状态</p>
-            <p><span class="emoji">♥️</span>猎豹已坐落在大巴车司机边上，时刻关注大巴车司机行驶动态，确保行程安全<span class="emoji">👌</span></p>
-            <p>有问题可以随时联系猎豹</p>
-            <p>18622389529</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
-
-    <div class="activity">
-        <h2>3. 位置信息</h2>
-        <div class="copy-content">
-            <p>家长朋友可以通过<span class="emoji">✅</span>实时定位来查询我们的位置哦</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
-
-    <div class="activity">
-        <h2>4. 下车准备</h2>
-        <div class="copy-content">
-            <p>①大巴车已经抵达营地，</p>
-            <p>我们依次下车<span class="emoji">🚌</span></p>
-            <p>②我们已经到达营地啦</p>
-            <p>在活动开始之前，让我们先带宝贝们，上个卫生间<span class="emoji">🚻</span></p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
-
-    <div class="activity">
-        <h2>5. 着装要求</h2>
-        <div class="copy-content">
-            <p>如何正确穿戴军装呢？</p>
-            <p>听我们的教官来讲解一下吧</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>猎豹教官正在给宝贝们讲解我们的穿着要求</p>
-                <p>帽子调到合适位置、上衣塞到裤子里</p>
-                <p>做一个板正、利索的小战士</p>
+    <div class="activity-list">
+        <div class="activity">
+            <div class="activity-header">
+                <h2>1. 身份证展示</h2>
+                <div class="toggle-icon">▼</div>
             </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="activity">
-        <h2>6. 温开水</h2>
-        <div class="copy-content">
-            <p>在营地我们都会有温开水供应，</p>
-            <p>为小战士们补积水分<span class="emoji">💦</span></p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
-
-    <div class="activity">
-        <h2>7. 两条规则</h2>
-        <div class="copy-content">
-            </p>大开场开始了</p>
-            <p>在今天的活动中每位小战士都要做到事事有回应、一令一动听指挥，两个要求</p>
-            <p>今天小战士们要听指挥才能当兵王</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
-
-    <div class="activity">
-        <h2>8. 分队表</h2>
-        
-        <div class="team">
-            <div class="copy-content">
-                <p><span class="emoji">【🔥火力全开】</span></p>
-                <p><span class="emoji">💥</span>队名:芭比队</p>
-                <p><span class="emoji">🪖</span>领队:芭比</p>
-                <p><span class="emoji">🫡</span>队长: 马沐辰</p>
-                <p><span class="emoji">🫡</span>副队长：田楚翔</p>
-                <p>小队成员：</p>
-                <p><span class="emoji">👦🏼</span>杨昌玥</p>
-                <p><span class="emoji">👦🏼</span>肖润泰</p>
-                <p><span class="emoji">👦🏼</span>王祎</p>
-                <p><span class="emoji">☎️</span>电话：18939212508</p>
-                <p>为方便活动中群内沟通，请各位家长朋友修改群备注，可以拉亲朋好友来围观哦～</p>
-                <p>例如：彭于晏妈妈@芭比队</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制芭比队信息</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>部分宝贝已经集合完毕<span class="emoji">✌🏻</span></p>
+                    <p>我们的教官——猎豹向大家进行活动的介绍和身份证展示<span class="emoji">🪪</span>为宝贝们的安全负责</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
 
-        <div class="team">
-            <div class="copy-content">
-                <p><span class="emoji">【🔥火力全开】</span></p>
-                <p><span class="emoji">💥</span>队名:火箭队</p>
-                <p><span class="emoji">🪖</span>领队:大圣</p>
-                <p><span class="emoji">🫡</span>队长: 叶振宽</p>
-                <p><span class="emoji">🫡</span>副队长：杨雨蒴</p>
-                <p><span class="emoji">🫡</span>生活部长： 郭子傲</p>
-                <p>小队成员：</p>
-                <p><span class="emoji">👦🏼</span> 祝世赫 <span class="emoji">👦🏼</span> 杨雨蒴</p>
-                <p><span class="emoji">☎️</span>电话：15508685896</p>
-                <p>为方便活动中群内沟通，请各位家长朋友修改群备注，可以拉亲朋好友来围观哦～ 也可以点击头像添加我的微信哦！</p>
-                <p>例如：彭于晏妈妈@</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>2. 交通广播</h2>
+                <div class="toggle-icon">▼</div>
             </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制火箭队信息</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>交通广播！！交通广播！！</p>
+                    <p><span class="emoji">📢</span>10位宝贝已全部上车</p>
+                    <p>2️⃣所有小朋友安全带已全部系好，侧面扶手调节到位，领队们已一一检查过</p>
+                    <p>3️⃣晕车的宝贝安排在靠前落座，已贴好晕车贴<span class="emoji">👶</span></p>
+                    <p>4️⃣本次车程预计60分钟左右<span class="emoji">⏱</span></p>
+                    <p>5️⃣领队们已分别落座在大巴车<span class="emoji">🚌</span>前中后，时刻关注宝贝们的状态</p>
+                    <p><span class="emoji">♥️</span>猎豹已坐落在大巴车司机边上，时刻关注大巴车司机行驶动态，确保行程安全<span class="emoji">👌</span></p>
+                    <p>有问题可以随时联系猎豹</p>
+                    <p>18622389529</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyFullSection(this, '8. 分队表')">复制全部分队信息</button>
-            <button class="share-btn" onclick="shareFullSection(this, '8. 分队表')">分享全部</button>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>9. 哨声指令</h2>
-        <div class="copy-content">
-            <p>哨声响起我们的小战士要干些什么呢</p>
-            <p><span class="emoji">🤗</span> -  解散 -  集合</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>3. 位置信息</h2>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>家长朋友可以通过<span class="emoji">✅</span>实时定位来查询我们的位置哦</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
         </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>10. 军火币奖励</h2>
-        <div class="copy-content">
-            <p>由于我们小战士们刚刚的表现良好，激情满满<span class="emoji">❤️‍🔥</span></p>
-            <p>现在每人发放一颗军火币，离我们的优良装备又近了一步</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>4. 下车准备</h2>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>①大巴车已经抵达营地，</p>
+                    <p>我们依次下车<span class="emoji">🚌</span></p>
+                    <p>②我们已经到达营地啦</p>
+                    <p>在活动开始之前，让我们先带宝贝们，上个卫生间<span class="emoji">🚻</span></p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
         </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>11. 支援前线游戏</h2>
-        <div class="copy-content">
-            <p>现在让我们教官来讲解一下</p>
-            <p>支援前线这个小游戏的游戏规则吧！</p>
-            <p>现在带宝贝们做个破冰小游戏——支援前线</p>
-            <p>支援一个什么呢？水壶！！！</p>
-            <p>又轮支援前线的破冰小游戏开始了</p>
-            <p>让我们看看<span class="emoji">👀</span>这次支援的是什么呢</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>5. 着装要求</h2>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>如何正确穿戴军装呢？</p>
+                    <p>听我们的教官来讲解一下吧</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+                
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>猎豹教官正在给宝贝们讲解我们的穿着要求</p>
+                        <p>帽子调到合适位置、上衣塞到裤子里</p>
+                        <p>做一个板正、利索的小战士</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>12. 军姿训练</h2>
-        <div class="copy-content">
-            <p>现在就要开始我们正式的军事基础训练啦</p>
-            <p>为什么要站军姿呢？</p>
-            <p>军姿可以锤炼我们的精神，可以锻炼我们的意志力，展现我们良好的精神面貌</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>站军姿需要两脚分开六十度，两腿挺直，大拇指贴于食指第二关节，两手自然下垂贴紧，收腹、挺胸、抬头、目视前方 ，两肩向后张</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>6. 温开水</h2>
+                <div class="toggle-icon">▼</div>
             </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>在营地我们都会有温开水供应，</p>
+                    <p>为小战士们补积水分<span class="emoji">💦</span></p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>站好军姿获得我们的军火币哦，</p>
-                <p>同时，我们的教官也在队伍中不停地为我们调整姿势，达到标准的状态</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>军事训练第一项【军姿】</p>
-                <p>双脚脚跟并拢，脚尖分开约60度，双腿挺直夹紧，膝盖后压。小腹微收，自然挺胸，上体正直。两肩稍向后张，双臂自然下垂，手指并拢贴于裤缝。下颌微收，双眼平视前方，保持头部端正，精神饱满，全身协调用力，展现威武挺拔姿态。</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>军姿是军人的基础形象，它磨炼意志、培养纪律性，塑造坚韧品格，展现威武气质，更彰显着服从命令、令行禁止的精神风貌。</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>13. 敬礼训练</h2>
-        <div class="copy-content">
-            <p>【敬礼礼毕】</p>
-            <p>动作要求：手心向下，手腕不得弯曲，右大臂略平，与两肩略成一线，同时注视受礼者。</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>现在教官正在为小朋友们讲解什么是敬礼<span class="emoji">🫡</span></p>
-                <p>敬礼分为三种，分别为：</p>
-                <p>举枪礼<span class="emoji">🔫</span></p>
-                <p>注目礼<span class="emoji">👀</span></p>
-                <p>举手礼<span class="emoji">🙋</span></p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>7. 两条规则</h2>
+                <div class="toggle-icon">▼</div>
             </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
+            <div class="activity-content">
+                <div class="copy-content">
+                    </p>大开场开始了</p>
+                    <p>在今天的活动中每位小战士都要做到事事有回应、一令一动听指挥，两个要求</p>
+                    <p>今天小战士们要听指挥才能当兵王</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>现在让我们看看小战士们站的如何呢？</p>
-                <p>/哇塞，我们小战士英姿挺拔简直帅气极了</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>军事训练第二项【敬礼】</p>
-                <p>敬礼通常分为举手礼、注目礼和举枪礼</p>
-                <p>今天我们学习举手礼</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>敬礼的动作要领</p>
-                <p>听到口令后，上体正直，右手取捷径迅速抬起，五指并拢自然伸直，中指微接帽檐右角前约2厘米处；小臂略平，与大臂约成90度；手心向下，微向外张约20度</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>14. 跨立训练</h2>
-        <div class="copy-content">
-            <p>跨立与立正时，出收脚要迅速，方向要正，距离准确，保持上体姿态不变。跨立时，要军姿端正，精神振作，左脚跨出与两手后背协调一致，定位准确。</p>
-            <p>垮立在军姿的基础上进行。</p>
-            <p>动作过程：左脚向左跨出约一脚之长，两腿挺直，上体保持立正姿势，身体重心落于两脚之间。两手后背，左手握右手腕，拇指根部与外腰带下沿（内腰带上沿）同高；右手手指并拢自然弯曲，手心向后。</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>8. 分队表</h2>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="activity-content">
+                <div class="team">
+                    <div class="copy-content">
+                        <p><span class="emoji">【🔥火力全开】</span></p>
+                        <p><span class="emoji">💥</span>队名:芭比队</p>
+                        <p><span class="emoji">🪖</span>领队:芭比</p>
+                        <p><span class="emoji">🫡</span>队长: 马沐辰</p>
+                        <p><span class="emoji">🫡</span>副队长：田楚翔</p>
+                        <p>小队成员：</p>
+                        <p><span class="emoji">👦🏼</span>杨昌玥</p>
+                        <p><span class="emoji">👦🏼</span>肖润泰</p>
+                        <p><span class="emoji">👦🏼</span>王祎</p>
+                        <p><span class="emoji">☎️</span>电话：18939212508</p>
+                        <p>为方便活动中群内沟通，请各位家长朋友修改群备注，可以拉亲朋好友来围观哦～</p>
+                        <p>例如：彭于晏妈妈@芭比队</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制芭比队信息</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
 
-    <div class="activity">
-        <h2>15. 休息与补水</h2>
-        <div class="copy-content">
-            <p>两项训练已经结束，我们调整休息一下活动活动，手腕脚踝</p>
-            <p>补水时间到啦！<span class="emoji">💧</span></p>
-            <p>补充好水分才能更好的继续进行下一个项目</p>
+                <div class="team">
+                    <div class="copy-content">
+                        <p><span class="emoji">【🔥火力全开】</span></p>
+                        <p><span class="emoji">💥</span>队名:火箭队</p>
+                        <p><span class="emoji">🪖</span>领队:大圣</p>
+                        <p><span class="emoji">🫡</span>队长: 叶振宽</p>
+                        <p><span class="emoji">🫡</span>副队长：杨雨蒴</p>
+                        <p><span class="emoji">🫡</span>生活部长： 郭子傲</p>
+                        <p>小队成员：</p>
+                        <p><span class="emoji">👦🏼</span> 祝世赫 <span class="emoji">👦🏼</span> 杨雨蒴</p>
+                        <p><span class="emoji">☎️</span>电话：15508685896</p>
+                        <p>为方便活动中群内沟通，请各位家长朋友修改群备注，可以拉亲朋好友来围观哦～ 也可以点击头像添加我的微信哦！</p>
+                        <p>例如：彭于晏妈妈@</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制火箭队信息</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyFullSection(this, '8. 分队表')">复制全部分队信息</button>
+                    <button class="share-btn" onclick="shareFullSection(this, '8. 分队表')">分享全部</button>
+                </div>
+            </div>
         </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>16. 枪械训练</h2>
-        <div class="copy-content">
-            <p>现在就发来给我们讲解一下枪支的安全使用</p>
-            <p>注意<span class="emoji">‼️</span>枪在今天的训练中不可以指向队友，枪是对准敌人的</p>
-            <p>QBZ—95性能特点：使用DBP87式5.8毫米步枪弹，弹头长径比大、穿透力强。全枪大量采用工程塑料与铝合金材质，耐腐蚀性突出，模块化设计便于维护。在高温、高湿及风沙环境中表现稳定。</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>第二个持枪姿势是——</p>
-                <p>站姿警戒持枪</p>
-                <p>什么是站姿警戒持枪呢</p>
-                <p>让我们听教官来讲解一下吧！</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>9. 哨声指令</h2>
+                <div class="toggle-icon">▼</div>
             </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>哨声响起我们的小战士要干些什么呢</p>
+                    <p><span class="emoji">🤗</span> -  解散 -  集合</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>军事训练【站姿持枪】</p>
-                <p>立姿持枪时，双脚分开与肩同宽，身体重心均匀分布，双膝微屈保持弹性。枪托稳固抵于肩窝，大臂自然下垂稍向外张，左手托握护木，右手握握把、食指置于扳机护圈外，目视前方，保持警觉与平衡</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>立姿狙枪时，双脚前后或左右分开站稳，间距略宽于肩，膝盖微屈降低重心。右手紧握枪托，贴腮瞄准，左手托住枪身前部稳定枪身，身体稍侧转，保持呼吸平稳，全身协调用力，以形成稳固支撑，确保精准瞄准。</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>在固定靶射击中，听到第一次哨声后，迅速进入射击状态，调整呼吸，稳定持枪姿势。集中注意力，通过瞄准具锁定目标，平稳扣动扳机，完成一次射击。击发后，保持姿势不变，观察弹着点，等待后续指令，准备下一次射击。</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>现在进行固定靶射击的是我们的火箭队</p>
-                <p>看看一令一动射击，战士们的命中率如何？</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>左脚在前，右脚在后 站姿射击</p>
-                <p>一令一动进行固定靶射击</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>接下来我们进行的是连续射击</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>连续射击的命中率已经比刚才一令一动固定摆射击命中率高很多了</p>
-                <p>连发的时候和一令一发完全不同诶</p>
-                <p>战士们的命中率很高</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>教官正在讲解快速移动射击的规则</p>
-                <p>每位宝贝分别进行，主要是记录宝贝的射击时间</p>
-                <p>需要注意的是在保证安全的同时进行</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>17. 手雷投掷训练</h2>
-        <div class="copy-content">
-            <p>投掷动作要领<span class="emoji">👇</span></p>
-            <p>双脚左右分开，与肩同宽或略宽，身体微微前倾，膝盖自然弯曲，重心置于两脚之间。</p>
-            <p>腿部蹬地发力，通过腰部的转动将力量传递到手臂。</p>
-            <p>右臂迅速向前挥摆，在手臂挥至身体前方约45°角时，手腕用力甩动，将手雷投出。</p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>我们一队的小朋友，现在跟着猎豹教练开始了手榴弹投掷训练</p>
-                <p>我们小朋友都很棒扔得远远的</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>10. 军火币奖励</h2>
+                <div class="toggle-icon">▼</div>
             </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>我们第二轮的手榴弹投掷训练</p>
-                <p>大家表现的也相当不错</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>由于我们小战士们刚刚的表现良好，激情满满<span class="emoji">❤️‍🔥</span></p>
+                    <p>现在每人发放一颗军火币，离我们的优良装备又近了一步</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+                <hr class="section-divider">
+                <div class="copy-content">
+                    <p>猎豹教官让每一位小战士认识到我们今天的任务，始终铭记最优良的武器装备始终颁发给最优势的战士。</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>让我们给他加油<span class="emoji">✊</span>加油<span class="emoji">✊</span>加油<span class="emoji">✊</span></p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>手雷按用途分为进攻型、防御型与特种手雷。进攻型靠冲击波杀伤，破片少；防御型靠大量高速破片制敌；特种手雷如闪光弹、烟雾弹、催泪弹，各有特殊作用。</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>投掷方式主要有立姿、跪姿和卧姿。立姿便于发力，投掷距离远；跪姿稳定性佳，适合隐蔽时用；卧姿隐蔽性强，适合低姿态攻击近距离目标，使用时需依场景选择合适方式 。</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>手雷的构造不同，同样这决定了手雷的用途也不同</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>那如何投掷手雷呢？</p>
-                <p>投掷手雷包含三个步骤：手榴弹预备、准备投弹、投！</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>18. 真人CS对战</h2>
-        <div class="copy-content">
-            <p>现在我们的教官正在讲解CS的枪支用法<span class="emoji">🔫🔫🔫</span></p>
-            <p>小战士们已经迫不及待准备开始了<span class="emoji">💃💃💃</span></p>
-        </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>在作战中，我们可以用军火币继续向教官进行购买生命数量</p>
-                <p>一天中认真训练获得<span class="emoji">🉐</span>的军火币再次派上用场啦</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>11. 支援前线游戏</h2>
+                <div class="toggle-icon">▼</div>
             </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>现在让我们教官来讲解一下</p>
+                    <p>支援前线这个小游戏的游戏规则吧！</p>
+                    <p>现在带宝贝们做个破冰小游戏——支援前线</p>
+                    <p>支援一个什么呢？水壶！！！</p>
+                    <p>又轮支援前线的破冰小游戏开始了</p>
+                    <p>让我们看看<span class="emoji">👀</span>这次支援的是什么呢</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>现在战场烟雾缭绕</p>
-                <p>让我们看看小战士们都躲藏在哪里啦<span class="emoji">👀</span></p>
-                <p>蛇形丝滑走位</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p><span class="emoji">💥</span>走进战场，仿佛瞬间穿越到了紧张刺激的战斗世界。</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>紧张的对决结束</p>
-                <p>小战士们仍旧是乐此不疲，讨论不绝，复盘中</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>此战二班倾向防守作战，一班火力压制作战</p>
-                <p>希望在下一轮的比拼中，小战士们都可以发挥自己的最大力量</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>一个好的团队有勇往前冲的前方</p>
-                <p>当然也要有最坚强的后盾<span class="emoji">🛡</span></p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>敌方虽然进攻非常猛烈</p>
-                <p>但我们小队也毫不逊色，小战士们火力非常迅猛</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>战士们手中的是我们进行CS的专用枪</p>
-                <p>经过一天活动赚取的军货币，用来帮助我们补充伤害，血量</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>紧张刺激的真人cs马上就要开始了！</p>
-                <p>开始之前由教官讲解规则</p>
-                <p>篮球场中线为界分红蓝两方</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>战士们在比赛过程中要注意安全哦</p>
-                <p>战况十分激烈</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>烟雾弹已经放出，战士们快速瞄准射击</p>
-                <p>红蓝双方交换场地，第二轮激战即将开始。</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>战场上增加了烟雾弹，为我们做掩体</p>
-                <p>利用烟雾弹战士们快速出击吧</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>现场加入了烟雾弹，为复杂的地形增加了难度</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>第二轮比赛结束，红方获得胜利</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>第三轮即将开始，我们不限子弹，不限生命值，把伤害调到最高让我们期待一下比赛战况</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>19. 结营与勋章发放</h2>
-        <div class="copy-content">
-            <p>下面也来到了宝贝们最期待的护照勋章发放环节</p>
-            <p>第一次参加的宝贝会有护照<span class="emoji">🪄</span>，护照也像一个回忆录<span class="emoji">🎈</span>，当翻开宝贝走天下护照，去回忆每一个印章背后的故事，都是宝贝们宝贵的记忆</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>12. 军姿训练</h2>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>现在就要开始我们正式的军事基础训练啦</p>
+                    <p>为什么要站军姿呢？</p>
+                    <p>军姿可以锤炼我们的精神，可以锻炼我们的意志力，展现我们良好的精神面貌</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+                
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>站军姿需要两脚分开六十度，两腿挺直，大拇指贴于食指第二关节，两手自然下垂贴紧，收腹、挺胸、抬头、目视前方 ，两肩向后张</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>站好军姿获得我们的军火币哦，</p>
+                        <p>同时，我们的教官也在队伍中不停地为我们调整姿势，达到标准的状态</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>军事训练第一项【军姿】</p>
+                        <p>双脚脚跟并拢，脚尖分开约60度，双腿挺直夹紧，膝盖后压。小腹微收，自然挺胸，上体正直。两肩稍向后张，双臂自然下垂，手指并拢贴于裤缝。下颌微收，双眼平视前方，保持头部端正，精神饱满，全身协调用力，展现威武挺拔姿态。</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>军姿是军人的基础形象，它磨炼意志、培养纪律性，塑造坚韧品格，展现威武气质，更彰显着服从命令、令行禁止的精神风貌。</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                
+                <!-- 军姿训练补充内容开始 -->
+                <div class="copy-content">
+                    <p>军事基础训练开始</p>
+                    <p>首先是军姿的学习为什么要学习军姿呢——军姿是一切军事动作🙇🏻‍♀️的基础</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>军姿</p>
+                        <p>军姿是军人的第一课，也是军训时要必学的本领，它是一切军事动作之母。 站军姿需要两脚分开六十度，两腿挺直，大拇指贴于食指第二关节，两手自然下垂贴紧，收腹、挺胸、抬头、目视前方 ，两肩向后张。</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>教官对每个战士动作进行调整</p>
+                        <p>稍后会有我们的军姿挑战</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>军姿挑战倒计时10秒钟‼️‼️</p>
+                        <p>稍后我们休息一下进行下一项训练</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>课代表来喽</p>
+                        <p>复习军姿要领现场抽查中～战士说的头头是道点赞哦～@王琰妈妈</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>军姿的训练到此结束啦现在学习下一个军事动作</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <!-- 军姿训练补充内容结束 -->
+            </div>
         </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>勋章<span class="emoji">🎖️🎖️🎖️</span></p>
-                <p>既是成长也是见证<span class="emoji">💦</span>每枚勋章都有其独特的意义<span class="emoji">🎖️</span>关于勇气、美好、回忆、汗水愿这些都能成为继续发光发热的燃料<span class="emoji">⛽️</span>不断前行</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>恭喜我们的田楚翔小战士获<span class="emoji">🉐</span>我们的2级勋章<span class="emoji">🎖️</span></p>
-                <p>@田楚翔妈妈 </p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>由教官亲自颁发在每位小战士手上！</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>每位宝贝领到啦军事礼物<span class="emoji">🎁</span>——战术手套</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>今天的愉快的活动就要结束了，接下来进行结营，总结一下今天学到了什么<span class="emoji">🤔</span></p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>上午小战士们学习了军姿、敬礼、垮立</p>
-                <p>下午小战士们练习了投掷手雷、移动射击、还有最受欢迎的真人cs</p>
-                <p>一天的时间很短，但是小战士们成长了很多</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>今天第一次参加的宝贝会领到一本新护照，后面每次活动都需要带上盖专属的印章，护照一定要保管好，丢失的话需要花费15元补办。</p>
-                <p><span class="emoji">⚠️</span>家长也借此提醒孩子保管好自己珍惜的物品，要不然就要从自己零花钱出啦～～</p>
-                <p>宝贝们回去以后要记得在第一页写上自己的名字</p>
-                <p>也可以在自己的印象旁边写上领队的名字，自己在活动中的感受喔</p>
-                <p>期待宝贝们将自己的美好回忆精彩装饰～</p>
-                <p>把护照变成手账本发挥自己的奇思妙想和创意把回忆点缀的也会更有意义</p>
-                <p>一起来看一下其他宝贝的护照吧～</p>
-                <p>这仅仅是一本护照吗？</p>
-                <p>不，这更像是一本记录孩子成长的手册<span class="emoji">🌱</span></p>
-                <p>宝贝们回去后也可以将护照用作记录本，记录<span class="emoji">📝</span>每一次的活动</p>
-            </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
-            </div>
-        </div>
-    </div>
 
-    <div class="activity">
-        <h2>20</h2>
-        <div class="copy-content">
-            <p>活动负责人猎豹正在向我们的家长朋友、小朋友们进行自我介绍，并出示他的身份证，为宝贝们今日活动的安全负责任，希望今日能带给宝贝们更多安全和温暖</p>
+        <div class="activity">
+            <div class="activity-header">
+                <h2>13. 敬礼训练</h2>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="activity-content">
+                <div class="copy-content">
+                    <p>【敬礼礼毕】</p>
+                    <p>动作要求：手心向下，手腕不得弯曲，右大臂略平，与两肩略成一线，同时注视受礼者。</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+                
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>现在教官正在为小朋友们讲解什么是敬礼🫡</p>
+                        <p>敬礼分为三种，分别为：</p>
+                        <p>举枪礼🔫</p>
+                        <p>注目礼👀</p>
+                        <p>举手礼🙋</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>现在让我们看看小战士们站的如何呢？</p>
+                        <p>/哇塞，我们小战士英姿挺拔简直帅气极了</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>军事训练第二项【敬礼】</p>
+                        <p>敬礼通常分为举手礼、注目礼和举枪礼</p>
+                        <p>今天我们学习举手礼</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>敬礼的动作要领</p>
+                        <p>听到口令后，上体正直，右手取捷径迅速抬起，五指并拢自然伸直，中指微接帽檐右角前约2厘米处；小臂略平，与大臂约成90度；手心向下，微向外张约20度</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                
+                <!-- 敬礼训练补充内容开始 -->
+                <div class="copy-content">
+                    <p>还是孩子们都认真听了还多获得一枚军火币呢</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>敬礼动作要领</p>
+                        <p>上体正直，右手取捷径迅速抬起，五指并拢自然伸直，中指微接帽檐右角前约2厘米处手心向下，微向外张，手腕不得弯曲，右大臂略平，与两肩略成一线💪</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>教官对战士们动作调整</p>
+                        <p>军姿也不能忘记敬礼要在军姿的基础上完成✅</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>敬礼挑战最后一分钟</p>
+                        <p>猎豹教官也在着重强调敬礼动作要领</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>倒计时十秒钟</p>
+                        <p>战士们都说不累</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <hr class="section-divider">
+                <div class="content-section">
+                    <div class="copy-content">
+                        <p>敬礼挑战结束🔚补水可是个大工程再来补补水💦💦</p>
+                    </div>
+                    <div class="btn-group">
+                        <button class="copy-btn" onclick="copyText(this)">复制</button>
+                        <button class="share-btn" onclick="shareText(this)">分享</button>
+                    </div>
+                </div>
+                <!-- 敬礼训练补充内容结束 -->
+            </div>
         </div>
-        <div class="btn-group">
-            <button class="copy-btn" onclick="copyText(this)">复制</button>
-            <button class="share-btn" onclick="shareText(this)">分享</button>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
+
+        <div class="activity">
+            <h2>14. 跨立训练</h2>
             <div class="copy-content">
-                <p>宝贝们已经顺利到达营地，现在我们去上个洗手间<span class="emoji">🚻</span>换上我们的军装。</p>
+                <p>跨立与立正时，出收脚要迅速，方向要正，距离准确，保持上体姿态不变。跨立时，要军姿端正，精神振作，左脚跨出与两手后背协调一致，定位准确。</p>
+                <p>垮立在军姿的基础上进行。</p>
+                <p>动作过程：左脚向左跨出约一脚之长，两腿挺直，上体保持立正姿势，身体重心落于两脚之间。两手后背，左手握右手腕，拇指根部与外腰带下沿（内腰带上沿）同高；右手手指并拢自然弯曲，手心向后。</p>
             </div>
             <div class="btn-group">
                 <button class="copy-btn" onclick="copyText(this)">复制</button>
                 <button class="share-btn" onclick="shareText(this)">分享</button>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
+
+        <div class="activity">
+            <h2>15. 休息与补水</h2>
             <div class="copy-content">
-                <p>期待宝贝们变装吧！期间我们暂停直播哦！</p>
+                <p>两项训练已经结束，我们调整休息一下活动活动，手腕脚踝</p>
+                <p>补水时间到啦！<span class="emoji">💧</span></p>
+                <p>补充好水分才能更好的继续进行下一个项目</p>
             </div>
             <div class="btn-group">
                 <button class="copy-btn" onclick="copyText(this)">复制</button>
                 <button class="share-btn" onclick="shareText(this)">分享</button>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
+
+        <div class="activity">
+            <h2>16. 枪械训练</h2>
             <div class="copy-content">
-                <p>猎豹教官正在给宝贝们讲解我们的穿着要求</p>
+                <p>现在就发来给我们讲解一下枪支的安全使用</p>
+                <p>注意‼️枪在今天的训练中不可以指向队友，枪是对准敌人的</p>
+                <p>QBZ—95性能特点：使用DBP87式5.8毫米步枪弹，弹头长径比大、穿透力强。全枪大量采用工程塑料与铝合金材质，耐腐蚀性突出，模块化设计便于维护。在高温、高湿及风沙环境中表现稳定。</p>
             </div>
             <div class="btn-group">
                 <button class="copy-btn" onclick="copyText(this)">复制</button>
                 <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>第二个持枪姿势是——</p>
+                    <p>站姿警戒持枪</p>
+                    <p>什么是站姿警戒持枪呢</p>
+                    <p>让我们听教官来讲解一下吧！</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>军事训练【站姿持枪】</p>
+                    <p>立姿持枪时，双脚分开与肩同宽，身体重心均匀分布，双膝微屈保持弹性。枪托稳固抵于肩窝，大臂自然下垂稍向外张，左手托握护木，右手握握把、食指置于扳机护圈外，目视前方，保持警觉与平衡</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>立姿狙枪时，双脚前后或左右分开站稳，间距略宽于肩，膝盖微屈降低重心。右手紧握枪托，贴腮瞄准，左手托住枪身前部稳定枪身，身体稍侧转，保持呼吸平稳，全身协调用力，以形成稳固支撑，确保精准瞄准。</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>在固定靶射击中，听到第一次哨声后，迅速进入射击状态，调整呼吸，稳定持枪姿势。集中注意力，通过瞄准具锁定目标，平稳扣动扳机，完成一次射击。击发后，保持姿势不变，观察弹着点，等待后续指令，准备下一次射击。</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>现在进行固定靶射击的是我们的火箭队</p>
+                    <p>看看一令一动射击，战士们的命中率如何？</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>左脚在前，右脚在后 站姿射击</p>
+                    <p>一令一动进行固定靶射击</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>接下来我们进行的是连续射击</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>连续射击的命中率已经比刚才一令一动固定摆射击命中率高很多了</p>
+                    <p>连发的时候和一令一发完全不同诶</p>
+                    <p>战士们的命中率很高</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>教官正在讲解快速移动射击的规则</p>
+                    <p>每位宝贝分别进行，主要是记录宝贝的射击时间</p>
+                    <p>需要注意的是在保证安全的同时进行</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <!-- 持枪训练补充内容开始 -->
+            <div class="copy-content">
+                <p>接下来进行持枪训练</p>
+                <p>猎豹教官🈶几点要求</p>
+                <p>1️⃣枪口不要对准人</p>
+                <p>2️⃣枪是战士的第二条生命，枪🔫不可以丢轻拿轻放</p>
+                <p>3️⃣安全第一位‼️</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>持枪</p>
+                    <p>正确✅持枪姿势是如何的呢虎口抓住枪🔫的握把，枪托抵住肩胛骨战士们动起来</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>进行射击准备的训练</p>
+                    <p>转换要"快准狠"</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>猎豹教官开始下一项跪姿射击教学</p>
+                    <p>越来越有难度的教学，小战士们要认真听喽</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            <!-- 持枪训练补充内容结束 -->
+        </div>
+
+        <div class="activity">
+            <h2>17. 手雷投掷训练</h2>
+            <div class="copy-content">
+                <p>投掷动作要领👇</p>
+                <p>双脚左右分开，与肩同宽或略宽，身体微微前倾，膝盖自然弯曲，重心置于两脚之间。</p>
+                <p>腿部蹬地发力，通过腰部的转动将力量传递到手臂。</p>
+                <p>右臂迅速向前挥摆，在手臂挥至身体前方约45°角时，手腕用力甩动，将手雷投出。</p>
+            </div>
+            <div class="btn-group">
+                <button class="copy-btn" onclick="copyText(this)">复制</button>
+                <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>我们一队的小朋友，现在跟着猎豹教练开始了手榴弹投掷训练</p>
+                    <p>我们小朋友都很棒扔得远远的</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>我们第二轮的手榴弹投掷训练</p>
+                    <p>大家表现的也相当不错</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>让我们给他加油✊加油✊加油✊</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>手雷按用途分为进攻型、防御型与特种手雷。进攻型靠冲击波杀伤，破片少；防御型靠大量高速破片制敌；特种手雷如闪光弹、烟雾弹、催泪弹，各有特殊作用。</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>投掷方式主要有立姿、跪姿和卧姿。立姿便于发力，投掷距离远；跪姿稳定性佳，适合隐蔽时用；卧姿隐蔽性强，适合低姿态攻击近距离目标，使用时需依场景选择合适方式 。</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>手雷的构造不同，同样这决定了手雷的用途也不同</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>那如何投掷手雷呢？</p>
+                    <p>投掷手雷包含三个步骤：手榴弹预备、准备投弹、投！</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
+
+        <div class="activity">
+            <h2>18. 真人CS对战</h2>
             <div class="copy-content">
-                <p>帽子调到合适位置、上衣塞到裤子里</p>
-                <p>做一个板正、利索的小战士</p>
+                <p>现在我们的教官正在讲解CS的枪支用法🔫🔫🔫</p>
+                <p>小战士们已经迫不及待准备开始了💃💃💃</p>
             </div>
             <div class="btn-group">
                 <button class="copy-btn" onclick="copyText(this)">复制</button>
                 <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>在作战中，我们可以用军火币继续向教官进行购买生命数量</p>
+                    <p>一天中认真训练获得🉐的军火币再次派上用场啦</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>现在战场烟雾缭绕</p>
+                    <p>让我们看看小战士们都躲藏在哪里啦👀</p>
+                    <p>蛇形丝滑走位</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p><span class="emoji">💥</span>走进战场，仿佛瞬间穿越到了紧张刺激的战斗世界。</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>紧张的对决结束</p>
+                    <p>小战士们仍旧是乐此不疲，讨论不绝，复盘中</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>此战二班倾向防守作战，一班火力压制作战</p>
+                    <p>希望在下一轮的比拼中，小战士们都可以发挥自己的最大力量</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>一个好的团队有勇往前冲的前方</p>
+                    <p>当然也要有最坚强的后盾🛡</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>敌方虽然进攻非常猛烈</p>
+                    <p>但我们小队也毫不逊色，小战士们火力非常迅猛</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>战士们手中的是我们进行CS的专用枪</p>
+                    <p>经过一天活动赚取的军火币，用来帮助我们补充伤害，血量</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>紧张刺激的真人cs马上就要开始了！</p>
+                    <p>开始之前由教官讲解规则</p>
+                    <p>篮球场中线为界分红蓝两方</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>战士们在比赛过程中要注意安全哦</p>
+                    <p>战况十分激烈</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>烟雾弹已经放出，战士们快速瞄准射击</p>
+                    <p>红蓝双方交换场地，第二轮激战即将开始。</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>战场上增加了烟雾弹，为我们做掩体</p>
+                    <p>利用烟雾弹战士们快速出击吧</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>现场加入了烟雾弹，为复杂的地形增加了难度</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>第二轮比赛结束，红方获得胜利</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>第三轮即将开始，我们不限子弹，不限生命值，把伤害调到最高让我们期待一下比赛战况</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
+
+        <div class="activity">
+            <h2>19. 结营与勋章发放</h2>
             <div class="copy-content">
-                <p>大开场开始了</p>
+                <p>下面也来到了宝贝们最期待的护照勋章发放环节</p>
+                <p>第一次参加的宝贝会有护照🪄，护照也像一个回忆录🎈，当翻开宝贝走天下护照，去回忆每一个印章背后的故事，都是宝贝们宝贵的记忆</p>
             </div>
             <div class="btn-group">
                 <button class="copy-btn" onclick="copyText(this)">复制</button>
                 <button class="share-btn" onclick="shareText(this)">分享</button>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>勋章🎖️🎖️🎖️</p>
+                    <p>既是成长也是见证💦每枚勋章都有其独特的意义🎖️关于勇气、美好、回忆、汗水愿这些都能成为继续发光发热的燃料⛽️不断前行</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>恭喜我们的田楚翔小战士获🉐我们的2级勋章🎖️</p>
+                    <p>@田楚翔妈妈 </p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>由教官亲自颁发在每位小战士手上！</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>每位宝贝领到啦军事礼物🎁——战术手套</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>今天的愉快的活动就要结束了，接下来进行结营，总结一下今天学到了什么🤔</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>上午小战士们学习了军姿、敬礼、垮立</p>
+                    <p>下午小战士们练习了投掷手雷、移动射击、还有最受欢迎的真人cs</p>
+                    <p>一天的时间很短，但是小战士们成长了很多</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>今天第一次参加的宝贝会领到一本新护照，后面每次活动都需要带上盖专属的印章，护照一定要保管好，丢失的话需要花费15元补办。</p>
+                    <p><span class="emoji">⚠️</span>家长也借此提醒孩子保管好自己珍惜的物品，要不然就要从自己零花钱出啦～～</p>
+                    <p>宝贝们回去以后要记得在第一页写上自己的名字</p>
+                    <p>也可以在自己的印象旁边写上领队的名字，自己在活动中的感受喔</p>
+                    <p>期待宝贝们将自己的美好回忆精彩装饰～</p>
+                    <p>把护照变成手账本发挥自己的奇思妙想和创意把回忆点缀的也会更有意义</p>
+                    <p>一起来看一下其他宝贝的护照吧～</p>
+                    <p>这仅仅是一本护照吗？</p>
+                    <p>不，这更像是一本记录孩子成长的手册🌱</p>
+                    <p>宝贝们回去后也可以将护照用作记录本，记录📝每一次的活动</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
+
+
+        <div class="activity">
+            <h2>20. 补充话术</h2>
             <div class="copy-content">
-                <p>在今天的活动中每位小战士都要做到事事有回应、一令一动听指挥，两个要求</p>
+                <p>我们已经安全抵达营地</p>
+                <p>宝贝们排队有序下车今天的活动要开始喽</p>
             </div>
             <div class="btn-group">
                 <button class="copy-btn" onclick="copyText(this)">复制</button>
                 <button class="share-btn" onclick="shareText(this)">分享</button>
             </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>今天小战士们要听指挥才能当兵王</p>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>先带宝贝们上个卫生间稍后进行变装</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>小战士们正在换装</p>
+                    <p>稍后我们的限定新皮肤即将出场喽😎</p>
+                    <p>期待一下吧</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
-        </div>
-        
-        <hr class="section-divider">
-        <div class="content-section">
-            <div class="copy-content">
-                <p>在进行移动射击之前，先跟着教官熟悉一下地形，以便做出更好的成绩</p>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>战士们换装完成✅女生是去卫生间🚻换的哦～</p>
+                    <p>在军事营我们是一名小战士着装也是🈶要求的猎豹教官来讲解</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
-            <div class="btn-group">
-                <button class="copy-btn" onclick="copyText(this)">复制</button>
-                <button class="share-btn" onclick="shareText(this)">分享</button>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>现在我们小战士接水🚰中</p>
+                    <p>补充好水分准备开始今日活动啦🥰</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>小队开场已经结束🔚战士们也在相互熟悉环节</p>
+                    <p>猎豹教官兑现承诺完成✅任务奖励军火🔥币</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>"国有国法 家有家规"</p>
+                    <p>在军事营需要战士们"一令一动听指挥👂🏻"战士们需要听从猎豹教官指令哦～</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>训练开始前先来个破冰小游戏让战士们更好融入彼此</p>
+                    <p>游戏🎮——粘泡泡糖🍭</p>
+                    <p>规则发布中……战士们要认真听讲喽</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>粘泡泡糖粘哪里</p>
+                    <p>两个战士的胳膊粘在一起看看👀战士们的反应力</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>继续继续</p>
+                    <p>这次粘哪里呢——三个小朋友的耳朵👂🏻粘在一起</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
+            </div>
+            
+            <hr class="section-divider">
+            <div class="content-section">
+                <div class="copy-content">
+                    <p>"一二三" 干干干‼️‼️</p>
+                    <p>经过游戏🎮环节我们先来补补水💦💦</p>
+                </div>
+                <div class="btn-group">
+                    <button class="copy-btn" onclick="copyText(this)">复制</button>
+                    <button class="share-btn" onclick="shareText(this)">分享</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1222,8 +1599,80 @@
                     }, 200);
                 }, { passive: true });
             });
+            
+            // 添加折叠面板功能
+            const activityHeaders = document.querySelectorAll('.activity-header');
+            activityHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const activity = this.parentElement;
+                    activity.classList.toggle('active');
+                });
+            });
+            
+            // 默认打开第一个活动
+            if (document.querySelector('.activity')) {
+                document.querySelector('.activity').classList.add('active');
+            }
+            
+            // 转换所有剩余活动为可折叠结构
+            convertActivitiesToCollapsible();
         });
-
+        
+        // 将所有普通活动块转换为可折叠结构
+        function convertActivitiesToCollapsible() {
+            const activities = document.querySelectorAll('.activity');
+            
+            activities.forEach(activity => {
+                // 如果已经转换过，则跳过
+                if (activity.querySelector('.activity-header')) {
+                    return;
+                }
+                
+                const h2 = activity.querySelector('h2');
+                if (!h2) return; // 跳过没有标题的活动
+                
+                // 创建header元素
+                const header = document.createElement('div');
+                header.className = 'activity-header';
+                
+                // 创建toggle图标
+                const toggleIcon = document.createElement('div');
+                toggleIcon.className = 'toggle-icon';
+                toggleIcon.textContent = '▼';
+                
+                // 创建content容器
+                const content = document.createElement('div');
+                content.className = 'activity-content';
+                
+                // 移动内容到新结构
+                const title = h2.cloneNode(true);
+                
+                // 将标题之后的所有内容移动到content中
+                const children = Array.from(activity.children);
+                let foundTitle = false;
+                
+                children.forEach(child => {
+                    if (child === h2) {
+                        foundTitle = true;
+                    } else if (foundTitle) {
+                        content.appendChild(child.cloneNode(true));
+                    }
+                });
+                
+                // 清空活动块，添加新结构
+                activity.innerHTML = '';
+                header.appendChild(title);
+                header.appendChild(toggleIcon);
+                activity.appendChild(header);
+                activity.appendChild(content);
+                
+                // 添加点击事件
+                header.addEventListener('click', function() {
+                    activity.classList.toggle('active');
+                });
+            });
+        }
+        
         function copyText(button) {
             // 显示加载状态
             button.classList.add('loading');
