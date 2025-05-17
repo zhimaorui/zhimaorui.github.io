@@ -8,27 +8,13 @@
         body {
             font-family: 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             color: #333;
-            background: url('https://gpswxdan.oss-cn-beijing.aliyuncs.com/2.jpg') no-repeat center center fixed;
-            background-size: contain; /* 保证图片完整显示 */
-            background-repeat: no-repeat;
-            position: relative;
-        }
-        /* 增加一个半透明遮罩，提升内容可读性 */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255,255,255,0.4); /* 透明度更低，图片更清晰 */
-            z-index: 0;
-            pointer-events: none;
-        }
-        #main-content, .activity-list, .activity, .copy-content, .content-section {
-            position: relative;
-            z-index: 1;
+            background-color: #f5f5f5;
+            background-image: linear-gradient(to bottom, #f9f7f0, #e8e6d9);
+            -webkit-tap-highlight-color: transparent; /* 移除iOS点击高亮 */
         }
         h1, h2 {
             color: #e74c3c;
@@ -68,7 +54,7 @@
             justify-content: flex-end;
         }
         .copy-btn, .share-btn {
-            background-color: #b68c5d !important;
+            background-color: #d4a373;
             color: white;
             border: none;
             border-radius: 4px;
@@ -85,13 +71,13 @@
             max-width: 120px;
         }
         .share-btn {
-            background-color: #4a6da6 !important;
+            background-color: #5a7ebc;
         }
-        .copy-btn:hover, .activity-header:hover {
-            background-color: #a07a4a !important;
+        .copy-btn:hover {
+            background-color: #b68c5d;
         }
         .share-btn:hover {
-            background-color: #395a8a !important;
+            background-color: #4a6da6;
         }
         .copy-btn:active, .share-btn:active {
             transform: translateY(1px);
@@ -187,7 +173,7 @@
         }
         
         .activity-header {
-            background-color: #b68c5d !important;
+            background-color: #d4a373;
             color: white;
             padding: 12px 15px;
             cursor: pointer;
@@ -199,7 +185,7 @@
         }
         
         .activity-header:hover {
-            background-color: #a07a4a !important;
+            background-color: #c69c6d;
         }
         
         .activity-header h2 {
@@ -326,12 +312,6 @@
             }
             .btn-group {
                 gap: 2px;
-            }
-        }
-        @media (max-width: 1300px) {
-            body {
-                max-width: 100%;
-                padding: 10px;
             }
         }
     </style>
