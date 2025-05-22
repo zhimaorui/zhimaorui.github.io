@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -11,14 +12,16 @@
             padding: 0;
             min-height: 100vh;
         }
+
         .container {
             max-width: 600px;
             margin: 32px auto 0 auto;
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             padding: 32px 16px 24px 16px;
         }
+
         @media (max-width: 700px) {
             .container {
                 max-width: 100vw;
@@ -28,6 +31,7 @@
                 margin: 0;
             }
         }
+
         .main-btn-group {
             display: flex;
             gap: 16px;
@@ -35,6 +39,7 @@
             justify-content: center;
             flex-wrap: wrap;
         }
+
         .main-btn {
             flex: 1 1 30%;
             min-width: 110px;
@@ -48,25 +53,31 @@
             cursor: pointer;
             font-size: 17px;
             font-weight: 500;
-            box-shadow: 0 2px 4px rgba(22,119,255,0.06);
+            box-shadow: 0 2px 4px rgba(22, 119, 255, 0.06);
             margin-bottom: 10px;
             letter-spacing: 0.5px;
             transition: background 0.18s, border 0.18s, color 0.18s, box-shadow 0.18s;
         }
-        .main-btn.active, .main-btn:hover {
+
+        .main-btn.active,
+        .main-btn:hover {
             background: #fff;
             color: #1677ff;
             border: 1.5px solid #1677ff;
-            box-shadow: 0 4px 12px rgba(22,119,255,0.13);
+            box-shadow: 0 4px 12px rgba(22, 119, 255, 0.13);
         }
-        .sub-btn-group, .common-sub-btn-group {
+
+        .sub-btn-group,
+        .common-sub-btn-group {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 18px;
             justify-content: center;
         }
-        .sub-btn, .common-sub-btn {
+
+        .sub-btn,
+        .common-sub-btn {
             flex: 1 1 28%;
             min-width: 90px;
             max-width: 140px;
@@ -82,18 +93,24 @@
             letter-spacing: 0.5px;
             transition: background 0.18s, border 0.18s, color 0.18s, box-shadow 0.18s;
         }
-        .sub-btn.active, .sub-btn:hover, .common-sub-btn.active, .common-sub-btn:hover {
+
+        .sub-btn.active,
+        .sub-btn:hover,
+        .common-sub-btn.active,
+        .common-sub-btn:hover {
             background: #e6f4ff;
             color: #1677ff;
             border: 1.5px solid #1677ff;
-            box-shadow: 0 2px 8px rgba(22,119,255,0.10);
+            box-shadow: 0 2px 8px rgba(22, 119, 255, 0.10);
         }
+
         .time-btn-group {
             display: flex;
             gap: 8px;
             margin-bottom: 14px;
             justify-content: center;
         }
+
         .time-btn {
             flex: 1 1 30%;
             min-width: 70px;
@@ -110,12 +127,15 @@
             margin-bottom: 4px;
             transition: background 0.18s, border 0.18s, color 0.18s, box-shadow 0.18s;
         }
-        .time-btn.active, .time-btn:hover {
+
+        .time-btn.active,
+        .time-btn:hover {
             background: #e6f4ff;
             color: #1677ff;
             border: 1.5px solid #1677ff;
-            box-shadow: 0 2px 8px rgba(22,119,255,0.10);
+            box-shadow: 0 2px 8px rgba(22, 119, 255, 0.10);
         }
+
         .speech-area {
             min-height: 60px;
             border: 1.5px solid #e5e6eb;
@@ -126,24 +146,27 @@
             color: #333;
             margin-top: 10px;
             white-space: pre-line;
-            box-shadow: 0 1.5px 6px rgba(80,120,200,0.04);
+            box-shadow: 0 1.5px 6px rgba(80, 120, 200, 0.04);
         }
+
         .speech-card {
             background: #fff;
             border: 1.5px solid #e5e6eb;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             padding: 14px 12px 14px 12px;
-            margin-bottom: 12px;
+            margin-bottom: 3px;
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
             transition: box-shadow 0.2s, border 0.18s;
             gap: 10px;
         }
+
         .speech-card:last-child {
             margin-bottom: 0;
         }
+
         .speech-text {
             word-break: break-all;
             flex: 1;
@@ -152,6 +175,7 @@
             line-height: 1.7;
             white-space: pre-wrap;
         }
+
         .copy-btn {
             margin-left: 8px;
             padding: 0 16px;
@@ -164,15 +188,18 @@
             cursor: pointer;
             font-weight: 500;
             letter-spacing: 0.5px;
-            box-shadow: 0 1px 4px rgba(22,119,255,0.06);
+            box-shadow: 0 1px 4px rgba(22, 119, 255, 0.06);
             transition: background 0.18s, border 0.18s, color 0.18s, box-shadow 0.18s;
         }
-        .copy-btn:active, .copy-btn:hover {
+
+        .copy-btn:active,
+        .copy-btn:hover {
             background: #1677ff;
             color: #fff;
             border: 1.5px solid #1677ff;
-            box-shadow: 0 2px 8px rgba(22,119,255,0.13);
+            box-shadow: 0 2px 8px rgba(22, 119, 255, 0.13);
         }
+
         .copy-toast {
             position: fixed;
             top: 18px;
@@ -183,25 +210,39 @@
             padding: 10px 28px;
             border-radius: 8px;
             font-size: 15px;
-            box-shadow: 0 2px 12px rgba(22,119,255,0.13);
+            box-shadow: 0 2px 12px rgba(22, 119, 255, 0.13);
             z-index: 9999;
             opacity: 0;
             pointer-events: none;
             border: 1.5px solid #1677ff;
-            transition: opacity 0.3s, transform 0.3s cubic-bezier(.68,-0.55,.27,1.55);
+            transition: opacity 0.3s, transform 0.3s cubic-bezier(.68, -0.55, .27, 1.55);
         }
+
         .copy-toast.show {
             opacity: 1;
             pointer-events: auto;
             transform: translateX(-50%) scale(1.08);
-            animation: toast-bounce-ant 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+            animation: toast-bounce-ant 0.7s cubic-bezier(.68, -0.55, .27, 1.55);
         }
+
         @keyframes toast-bounce-ant {
-            0% { transform: translateX(-50%) scale(0.9); }
-            60% { transform: translateX(-50%) scale(1.15); }
-            80% { transform: translateX(-50%) scale(0.98); }
-            100% { transform: translateX(-50%) scale(1.08); }
+            0% {
+                transform: translateX(-50%) scale(0.9);
+            }
+
+            60% {
+                transform: translateX(-50%) scale(1.15);
+            }
+
+            80% {
+                transform: translateX(-50%) scale(0.98);
+            }
+
+            100% {
+                transform: translateX(-50%) scale(1.08);
+            }
         }
+
         .collapse-btn {
             margin: 0 auto 16px auto;
             display: block;
@@ -215,15 +256,17 @@
             font-weight: 500;
             letter-spacing: 0.5px;
             cursor: pointer;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
             transition: background 0.18s, border 0.18s, color 0.18s, box-shadow 0.18s;
         }
+
         .collapse-btn:hover {
             background: #e6f4ff;
             color: #1677ff;
             border: 1.5px solid #1677ff;
-            box-shadow: 0 2px 8px rgba(22,119,255,0.10);
+            box-shadow: 0 2px 8px rgba(22, 119, 255, 0.10);
         }
+
         .small-btn {
             min-width: 44px;
             max-width: 80px;
@@ -238,6 +281,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="main-btn-group">
@@ -564,7 +608,7 @@
                 }
             ],
             air: [
-            {
+                {
                     "出发地-营地（中午12:00前抵达）": [
                         "各位家长朋友们早上好，小黄人正在前往集合地点的路上，咱们待会儿见啦~",
                         "来一首宝贝走天下主题曲！\n\n开启今日活力满满的一天",
@@ -787,15 +831,15 @@
                         "现在我们的营长正在给我们小战士进行一天的总结✅\n\n对表现好的提出表扬对不好的现象进行反思⭕️",
                         "小战士🪖们需要提高的点：⬇️\n\n内务整理，集合速度还需提高"
                     ],
-                    "内务整理":[
-                    "现在进行自我介绍和职务竞选\n\n待会会将小战士的自我介绍视频和职位分配发到群里，各位宝爸宝妈请耐心等待⌛️",
-                    "✈️【空军少年营】✈️\n💎班级：2⃣️中队\n💕领队：风铃🎐\n📝班长：205刘昱辰\n     副班长：203李京旼\n     队员：204刘语辰\n           201赵千喆\n           202徐盛洋\n\n领队：风铃\n☎电话：15333229471",
-                    "现在是洗澡🛁时间⏰\n\n小战士🪖们陆续开始洗澡洗漱🛀领队和教官为方便照顾和检查是否洗干净以及检查身体，直播暂停哦～",
-                      "空调暂时未开启，等小战士们洗完澡吹干头发后，会根据室内温度来调节温度🌡️",
-                    "教官和领队在走廊上为已经冲洗完的小战士分别进行吹头发",
-                     "教官领队也会分别给每位小战士🪖涂抹痱子粉\n\n分别在腋窝下、腿窝、腰部、后脖颈等容易出汗的地方",
-                      "小战士🪖第一天来到军营，内心充满了新奇与期待，同时也夹杂着一丝紧张\n\n但是教官和领队会一直陪伴各位小战士🪖，在这一天中也看到各位小战士的努力。还有六天等待⌛️各位小战士挑战，小战士们晚安😴，小战士们加油",
-                       "206、207、208、209宿舍的小战士们痱子粉已经在腋下，后背，脖子涂好啦✅，我们小战士进入晚安时间喽😴\n\n晚安💤，小战士🪖们，愿你们在接下来的七天六夜里绽放属于自己的光芒🌟，晚安喽😴"
+                    "内务整理": [
+                        "现在进行自我介绍和职务竞选\n\n待会会将小战士的自我介绍视频和职位分配发到群里，各位宝爸宝妈请耐心等待⌛️",
+                        "✈️【空军少年营】✈️\n💎班级：2⃣️中队\n💕领队：风铃🎐\n📝班长：205刘昱辰\n     副班长：203李京旼\n     队员：204刘语辰\n           201赵千喆\n           202徐盛洋\n\n领队：风铃\n☎电话：15333229471",
+                        "现在是洗澡🛁时间⏰\n\n小战士🪖们陆续开始洗澡洗漱🛀领队和教官为方便照顾和检查是否洗干净以及检查身体，直播暂停哦～",
+                        "空调暂时未开启，等小战士们洗完澡吹干头发后，会根据室内温度来调节温度🌡️",
+                        "教官和领队在走廊上为已经冲洗完的小战士分别进行吹头发",
+                        "教官领队也会分别给每位小战士🪖涂抹痱子粉\n\n分别在腋窝下、腿窝、腰部、后脖颈等容易出汗的地方",
+                        "小战士🪖第一天来到军营，内心充满了新奇与期待，同时也夹杂着一丝紧张\n\n但是教官和领队会一直陪伴各位小战士🪖，在这一天中也看到各位小战士的努力。还有六天等待⌛️各位小战士挑战，小战士们晚安😴，小战士们加油",
+                        "206、207、208、209宿舍的小战士们痱子粉已经在腋下，后背，脖子涂好啦✅，我们小战士进入晚安时间喽😴\n\n晚安💤，小战士🪖们，愿你们在接下来的七天六夜里绽放属于自己的光芒🌟，晚安喽😴"
                     ]
                 },
                 // 第2天
@@ -1023,36 +1067,36 @@
                         "小战士们已经结束了早上的VR和模拟驾驶项目，可以看出来小战士们都特别开心呀\n现在我们向餐厅出发，准备开饭啦"
                     ],
                     "实景演习战场救护": [
-                    "小战士们到达教室，先来补充水分，一会儿学习我们的急救知识[太阳]",
-        "小战士们精神饱满，直接进入正题，三角巾包扎法的学习",
-        "教官示范如何进行包扎，千万不要忘记！确保三角巾的底边中点准确放置在眉间上部和包扎时要保持适当的紧度，既不过紧也不过松",
-        "三角巾包扎法，是指使用三角巾对患者伤口进行包扎处理的方法。其制作方便，易于掌握，可使用的环境和范围非常广泛。主要应用于头部创伤、胸腹外伤、肩部外伤也可用于眼部创伤、手足外伤",
-        "现在由204小战士充当小演员，给小战士们演示一下～认真观看哦，知识点很重要！",
-        "进入心肺复苏的急救学习，看看小战士们有了解过吗",
-        "特别注意！！！心肺复苏和AED除颤仪禁止在活物身上使用！",
-        "生命脆弱且珍贵，一名合格的小战士，要懂得自救以及救治战友。下面我们小战士学习如何正确使用AED除颤仪",
-        "下面是教官分步讲解AED除颤仪如何使用！具体步骤：1先观察2迅速连通电源3贴上贴片4按下按钮",
-        "发现有人晕倒！先判断意识。若无意识，检查是否有呼吸，一听二看，三感觉，十秒内无呼吸检出，立即开始心肺复苏同时注意检查身下有无异物哦！",
-        "正确的人工呼吸！打开气道并检查口中有无异物！如有异物，把伤者头部偏向一侧可用手指清除口腔异物。打开气道，将一只手置于伤员的前额，将另一只手置于下颚下方并向上提起，使伤者头部后仰，捏紧伤者鼻翼，深吸一口气，用双唇紧包住伤者口唇，吹气一次持续一秒以上，伤者胸口隆起，则表明吹气有效",
-        "心肺复苏的注意点！①要以跪姿的姿势去操作，力量上是整个上身的力量去完成，下压的力才均匀②人工呼吸时要捏住鼻子，防止吹进去的气从鼻子跑出[机智]",
-        "教官现在给小战士讲解心肺复苏全流程，先来一个情景模拟，小战士们认真观摩学习哦",
-        "心肺复苏第1步：判断意识！当发现有人无意识倒地后立即轻拍其双肩检查，并在其双耳边大声呼喊，检查患者意识情况。若无意识，检查是否有呼吸，一听二看，三感觉，十秒内无呼吸检出，立即开始心肺复苏",
-        "第2步：胸外按压。先检查后背有无异物！之后以掌根接触胸骨下端按压，手臂垂直胸壁用力按压深度至少5cm，不超过6cm，频率为100-120次/分，共按压30次，循环五次。然后开放气道，以压额抬颌法开放气道，必要时清理气道异物，为人工呼吸做准备",
-        "急救时注意！保证空气流通，确保救援正常，再准备胸外按压，要以跪姿的姿势去操作，力量上是整个上身的力量去完成，下压的力才均匀",
-        "第3步：口对口人工呼吸。捏住患者鼻子在保持开放气道动作的前提下！！，以自己的口包住患者的口吹气一秒，吹气前普通吸气即可，吹气后放开捏鼻的手，让气体自然呼出，一共吹气2次。以如上30:2按压通气比操作，直至急救人员赶到，或患者出现自主循环体征",
-        "按照以上流程，注意！特殊事项，患者出现自主循环体征，抢救成功",
-        "心肺复苏的理论知识学习完毕，那当然要让小战士们来依次动手实践啦，稍后会依次发送小战士们单人心肺复苏的实践视频，期待一下战士们的学习成果吧",
-        "室内理论学习结束，现在前往室外练习实景战场救援",
-        "已到达我们的实景战场场地，先来带小战士们熟悉一下我们的救援路线",
-        "喷个驱蚊水，我们要开启救援任务啦！",
-        "演习即将开始，规则已经讲清楚，分为保卫组和急救组，稍后统一发送视频期待战士们的表现",
-        "战场实景救援中会有烟雾来袭，但请家长放心烟雾无毒仅为孩子们营造氛围感",
-        "2中队演练开始。保卫组：202徐盛洋205刘昱辰；急救组：(担架组：201赵千喆203李京旼)背包：204刘语辰",
-        "以上为2中队第一轮实景演习战场救护，看看宝贝们的精彩表现",
-        "教官进行总结，小战士们成功救援战友，但还需要再加强配合，会让我们的救援更加完美哦！"
+                        "小战士们到达教室，先来补充水分，一会儿学习我们的急救知识[太阳]",
+                        "小战士们精神饱满，直接进入正题，三角巾包扎法的学习",
+                        "教官示范如何进行包扎，千万不要忘记！确保三角巾的底边中点准确放置在眉间上部和包扎时要保持适当的紧度，既不过紧也不过松",
+                        "三角巾包扎法，是指使用三角巾对患者伤口进行包扎处理的方法。其制作方便，易于掌握，可使用的环境和范围非常广泛。主要应用于头部创伤、胸腹外伤、肩部外伤也可用于眼部创伤、手足外伤",
+                        "现在由204小战士充当小演员，给小战士们演示一下～认真观看哦，知识点很重要！",
+                        "进入心肺复苏的急救学习，看看小战士们有了解过吗",
+                        "特别注意！！！心肺复苏和AED除颤仪禁止在活物身上使用！",
+                        "生命脆弱且珍贵，一名合格的小战士，要懂得自救以及救治战友。下面我们小战士学习如何正确使用AED除颤仪",
+                        "下面是教官分步讲解AED除颤仪如何使用！具体步骤：1先观察2迅速连通电源3贴上贴片4按下按钮",
+                        "发现有人晕倒！先判断意识。若无意识，检查是否有呼吸，一听二看，三感觉，十秒内无呼吸检出，立即开始心肺复苏同时注意检查身下有无异物哦！",
+                        "正确的人工呼吸！打开气道并检查口中有无异物！如有异物，把伤者头部偏向一侧可用手指清除口腔异物。打开气道，将一只手置于伤员的前额，将另一只手置于下颚下方并向上提起，使伤者头部后仰，捏紧伤者鼻翼，深吸一口气，用双唇紧包住伤者口唇，吹气一次持续一秒以上，伤者胸口隆起，则表明吹气有效",
+                        "心肺复苏的注意点！①要以跪姿的姿势去操作，力量上是整个上身的力量去完成，下压的力才均匀②人工呼吸时要捏住鼻子，防止吹进去的气从鼻子跑出[机智]",
+                        "教官现在给小战士讲解心肺复苏全流程，先来一个情景模拟，小战士们认真观摩学习哦",
+                        "心肺复苏第1步：判断意识！当发现有人无意识倒地后立即轻拍其双肩检查，并在其双耳边大声呼喊，检查患者意识情况。若无意识，检查是否有呼吸，一听二看，三感觉，十秒内无呼吸检出，立即开始心肺复苏",
+                        "第2步：胸外按压。先检查后背有无异物！之后以掌根接触胸骨下端按压，手臂垂直胸壁用力按压深度至少5cm，不超过6cm，频率为100-120次/分，共按压30次，循环五次。然后开放气道，以压额抬颌法开放气道，必要时清理气道异物，为人工呼吸做准备",
+                        "急救时注意！保证空气流通，确保救援正常，再准备胸外按压，要以跪姿的姿势去操作，力量上是整个上身的力量去完成，下压的力才均匀",
+                        "第3步：口对口人工呼吸。捏住患者鼻子在保持开放气道动作的前提下！！，以自己的口包住患者的口吹气一秒，吹气前普通吸气即可，吹气后放开捏鼻的手，让气体自然呼出，一共吹气2次。以如上30:2按压通气比操作，直至急救人员赶到，或患者出现自主循环体征",
+                        "按照以上流程，注意！特殊事项，患者出现自主循环体征，抢救成功",
+                        "心肺复苏的理论知识学习完毕，那当然要让小战士们来依次动手实践啦，稍后会依次发送小战士们单人心肺复苏的实践视频，期待一下战士们的学习成果吧",
+                        "室内理论学习结束，现在前往室外练习实景战场救援",
+                        "已到达我们的实景战场场地，先来带小战士们熟悉一下我们的救援路线",
+                        "喷个驱蚊水，我们要开启救援任务啦！",
+                        "演习即将开始，规则已经讲清楚，分为保卫组和急救组，稍后统一发送视频期待战士们的表现",
+                        "战场实景救援中会有烟雾来袭，但请家长放心烟雾无毒仅为孩子们营造氛围感",
+                        "2中队演练开始。保卫组：202徐盛洋205刘昱辰；急救组：(担架组：201赵千喆203李京旼)背包：204刘语辰",
+                        "以上为2中队第一轮实景演习战场救护，看看宝贝们的精彩表现",
+                        "教官进行总结，小战士们成功救援战友，但还需要再加强配合，会让我们的救援更加完美哦！"
                     ],
                     "站岗巡逻执勤": [
-                    "三队小战士集合✅，马上开始我们的站岗环节",
+                        "三队小战士集合✅，马上开始我们的站岗环节",
                         "口令 \"宝贝\"\n回令 \"走天下\"\n马上开始我们的站岗环节",
                         "⬆️遇到可疑人员❗️小战士们警惕性非常的高立马拦下询问口号，口令通过，放行✅",
                         "我们的301小战士🪖和302小战士🪖流动岗巡逻完毕✅，进行岗位交接",
@@ -1103,18 +1147,18 @@
                 // 第6天
                 {
                     "搭建临时空军作战指挥中心": [
-                    "搭建临时空军作战指挥中心 ✈️",
-        "为了下午的空军多兵种联合演习，先让我们的小战士们搭建联合作战演习所需要的基建 🏗️",
-        "小战士们需要搭建我们的雷达站、加油站、弹药库、塔台等等基建 🪖 \n1中队搭建【雷达站】 📡\n2中队搭建【弹药库】和【加油站】 💣⛽\n3中队搭建【塔台】 🗼\n各中队互帮互助，为同一目标共同努力吧 👏",
-        "二队的小战士们开始齐力搭建【弹药库】喽 💪 小战士们分工合作，一起完成",
-        "三队的小战士们齐心协力共同合作搭建属于三中队的'塔台' 🏗️",
-        "弹药库已初见雏形，搭建'空军加油站'进行中 ⛽ 齐心协力共同搭建，助力他们在逐梦蓝天的旅程中勇往直前 ✈️",
-        "一中队小战士分工明确，开始搭建雷达站 📡 这是一项复杂且需要精确规划的工程，小战士们加油 💪",
-        "3中队的空军塔台的搭建雏形就要出来啦~我们再把顶部搭建起来! 🗼 期待一下我们'塔台'的成果 ✨",
-        "一中队的小战士顺利搭建完成 ✅ 特别棒！一会我们就要开始下午的活动啦，期待值拉满 ⚡",
-        "三中队的小战士们塔台已搭建完毕 🎉 还有小战士在进行最后的修补 🛠️",
-        "所有基建已经在小战士们的努力下成功搭建完成 ✅ 小战士们先补充水分休息一下 💧 稍后开始我们的联合作战演习",
-        "演习之前，小战士们进行角色分配: 塔台、雷达站、弹药库、加油站、机库以及飞行员。\n2中队分配名单：\n加油站 ⛽: 203李京旼\n塔台 🗼: 205刘昱辰\n雷达站 📡: 204刘语辰\n弹药库 💣: 201赵千喆\n机库 🏠: 202徐盛洋\n飞行员 ✈️: 所有二中队小战士",
+                        "搭建临时空军作战指挥中心 ✈️",
+                        "为了下午的空军多兵种联合演习，先让我们的小战士们搭建联合作战演习所需要的基建 🏗️",
+                        "小战士们需要搭建我们的雷达站、加油站、弹药库、塔台等等基建 🪖 \n1中队搭建【雷达站】 📡\n2中队搭建【弹药库】和【加油站】 💣⛽\n3中队搭建【塔台】 🗼\n各中队互帮互助，为同一目标共同努力吧 👏",
+                        "二队的小战士们开始齐力搭建【弹药库】喽 💪 小战士们分工合作，一起完成",
+                        "三队的小战士们齐心协力共同合作搭建属于三中队的'塔台' 🏗️",
+                        "弹药库已初见雏形，搭建'空军加油站'进行中 ⛽ 齐心协力共同搭建，助力他们在逐梦蓝天的旅程中勇往直前 ✈️",
+                        "一中队小战士分工明确，开始搭建雷达站 📡 这是一项复杂且需要精确规划的工程，小战士们加油 💪",
+                        "3中队的空军塔台的搭建雏形就要出来啦~我们再把顶部搭建起来! 🗼 期待一下我们'塔台'的成果 ✨",
+                        "一中队的小战士顺利搭建完成 ✅ 特别棒！一会我们就要开始下午的活动啦，期待值拉满 ⚡",
+                        "三中队的小战士们塔台已搭建完毕 🎉 还有小战士在进行最后的修补 🛠️",
+                        "所有基建已经在小战士们的努力下成功搭建完成 ✅ 小战士们先补充水分休息一下 💧 稍后开始我们的联合作战演习",
+                        "演习之前，小战士们进行角色分配: 塔台、雷达站、弹药库、加油站、机库以及飞行员。\n2中队分配名单：\n加油站 ⛽: 203李京旼\n塔台 🗼: 205刘昱辰\n雷达站 📡: 204刘语辰\n弹药库 💣: 201赵千喆\n机库 🏠: 202徐盛洋\n飞行员 ✈️: 所有二中队小战士",
                     ],
                     "空军多兵种联合演习": [
                         "联合作战演习开始\n第一队上场的是我们的3️⃣中队小战士🪖\n看看小战士们精彩的表现吧！",
@@ -1252,7 +1296,7 @@
         const airSchedule = [
             [
                 "出发地-营地（中午12:00前抵达）", "分房/发放装备",
-                "基础训练",  "开营仪式", 
+                "基础训练", "开营仪式",
                 "内务整理"
             ],
             [
@@ -1310,8 +1354,8 @@
                 for (let i = 0; i < btnCount; i++) {
                     const btn = document.createElement('button');
                     btn.className = 'sub-btn';
-                    btn.innerText = `第${i+1}天`;
-                    btn.onclick = function() { selectDay(i); };
+                    btn.innerText = `第${i + 1}天`;
+                    btn.onclick = function () { selectDay(i); };
                     subBtnGroup.appendChild(btn);
                 }
                 document.getElementById('collapseBtn').style.display = 'block';
@@ -1329,7 +1373,7 @@
                     const btn = document.createElement('button');
                     btn.className = 'common-sub-btn';
                     btn.innerText = key;
-                    btn.onclick = function() { selectCommonSub(key, idx); };
+                    btn.onclick = function () { selectCommonSub(key, idx); };
                     commonSubBtnGroup.appendChild(btn);
                 });
                 document.getElementById('collapseBtn').style.display = 'block';
@@ -1357,7 +1401,7 @@
                         const btn = document.createElement('button');
                         btn.className = 'time-btn small-btn';
                         btn.innerText = label.trim();
-                        btn.onclick = function() { selectTime(label.trim(), realIdx); };
+                        btn.onclick = function () { selectTime(label.trim(), realIdx); };
                         timeBtnGroup.appendChild(btn);
                         realIdx++;
                     });
@@ -1373,7 +1417,7 @@
                         const btn = document.createElement('button');
                         btn.className = 'time-btn small-btn';
                         btn.innerText = label.trim();
-                        btn.onclick = function() { selectTime(label.trim(), realIdx); };
+                        btn.onclick = function () { selectTime(label.trim(), realIdx); };
                         timeBtnGroup.appendChild(btn);
                         realIdx++;
                     });
@@ -1382,11 +1426,11 @@
             } else {
                 // 其他情况，显示上午/下午/晚上
                 timeBtnGroup.style.display = 'flex';
-                ['上午','下午','晚上'].forEach((label, idx) => {
+                ['上午', '下午', '晚上'].forEach((label, idx) => {
                     const btn = document.createElement('button');
                     btn.className = 'time-btn';
                     btn.innerText = label;
-                    btn.onclick = function() { selectTime(label, idx); };
+                    btn.onclick = function () { selectTime(label, idx); };
                     timeBtnGroup.appendChild(btn);
                 });
                 document.getElementById('speechArea').innerHTML = '请选择下方时间段按钮查看对应话术。';
@@ -1406,11 +1450,11 @@
             if (currentCamp === 'armor') {
                 // 装甲营按流程名称查找话术
                 const dayData = speechData[currentCamp][currentDay] || {};
-                speeches = dayData[timeLabel] || dayData[['上午','下午','晚上'][idx]] || [];
+                speeches = dayData[timeLabel] || dayData[['上午', '下午', '晚上'][idx]] || [];
             } else if (currentCamp === 'air') {
                 // 空军营按流程名称查找话术
                 const dayData = speechData[currentCamp][currentDay] || {};
-                speeches = dayData[timeLabel] || dayData[['上午','下午','晚上'][idx]] || [];
+                speeches = dayData[timeLabel] || dayData[['上午', '下午', '晚上'][idx]] || [];
             } else {
                 // 通用话术按时间段查找
                 const dayData = speechData[currentCamp][currentDay] || {};
@@ -1448,10 +1492,10 @@
         function copyText(text, btn) {
             // 优先使用现代API
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(function() {
+                navigator.clipboard.writeText(text).then(function () {
                     showCopied(btn); // 显示已复制提示
                     showToast();    // 顶部toast提示
-                }, function() {
+                }, function () {
                     fallbackCopyText(text, btn); // 兼容处理
                 });
             } else {
@@ -1471,7 +1515,7 @@
                 document.execCommand('copy'); // 执行复制
                 showCopied(btn);
                 showToast();
-            } catch (err) {}
+            } catch (err) { }
             document.body.removeChild(textarea);
         }
         // 复制按钮状态切换为"已复制"并1.2秒后恢复
@@ -1510,11 +1554,12 @@
         // HTML转义，防止XSS和排版错乱
         function escapeHTML(str) {
             return str.replace(/&/g, '&amp;')
-                      .replace(/</g, '&lt;')
-                      .replace(/>/g, '&gt;')
-                      .replace(/"/g, '&quot;')
-                      .replace(/'/g, '&#39;');
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
         }
     </script>
 </body>
+
 </html>
